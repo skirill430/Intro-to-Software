@@ -13,4 +13,4 @@ jobs:
       - uses: actions/add-to-project@v0.4.0
         with:
           project-url: https://github.com/users/skirill430/projects/1
-          github-token: $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
+          github-token: ${{ secrets.GITHUB_TOKEN }}
