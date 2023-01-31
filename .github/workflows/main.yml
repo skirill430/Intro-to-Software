@@ -10,7 +10,7 @@ jobs:
     name: Add issue to project
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/add-to-project@RELEASE_VERSION
+      - uses: actions/add-to-project@0.4.0
         with:
           project-url: https://github.com/users/skirill430/projects/1
           github-token: $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
