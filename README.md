@@ -10,3 +10,9 @@ Joseph Karch
 Back end:
 Daniel Wildsmith, 
 Kirill Sokolov
+
+To run:
+```
+npm install
+ng serve
+```
