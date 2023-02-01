@@ -11,8 +11,22 @@ Back end:
 Daniel Wildsmith, 
 Kirill Sokolov
 
-To run:
+To run, first execute the command to install necessary packages.
 ```
 npm install
+```
+
+To run the server and client together:
+```
+npm start
+```
+
+To run the client only:
+```
 ng serve
+```
+
+To run the server only:
+```
+go run server/main.go
 ```
