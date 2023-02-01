@@ -13,7 +13,7 @@ import (
 func main() {
 	r := mux.NewRouter()
 
-	r.HandleFunc("/hello-world", helloWorld).Methods("PUT")
+	r.HandleFunc("/hello-world", helloWorld)
 
 	corsHandler := cors.New(cors.Options{
 		AllowedOrigins: []string{"http://localhost:4200"},

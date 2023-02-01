@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start-client": "ng serve",
+    "start-server": "go run server/main.go",
+    "start": "concurrently --kill-others \"npm run start-client\" \"npm run start-server\"",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
