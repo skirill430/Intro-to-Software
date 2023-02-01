@@ -7,15 +7,20 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/rs/cors"
 )
 
 func main() {
 	r := mux.NewRouter()
 
-	r.HandleFunc("/hello-world", helloWorld)
+	r.HandleFunc("/hello-world", helloWorld).Methods("PUT")
 
-	fmt.Println("Server running on Port 4200...")
-	log.Fatal(http.ListenAndServe(":4200", r))
+	corsHandler := cors.New(cors.Options{
+		AllowedOrigins: []string{"http://localhost:4200"},
+	})
+
+	fmt.Println("Server running on Port 9000...")
+	log.Fatal(http.ListenAndServe(":9000", corsHandler.Handler(r)))
 }
 
 func helloWorld(w http.ResponseWriter, r *http.Request) {
