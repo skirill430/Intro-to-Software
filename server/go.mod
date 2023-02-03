@@ -1,4 +1,4 @@
-module example/go-server
+module github.com/skirill430/Quick-Shop/server
 
 go 1.19
 

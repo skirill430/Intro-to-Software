@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start-client": "ng serve",
-    "start-server": "go run server/main.go",
+    "start-server": "cd server && go run main.go",
     "start": "concurrently --kill-others \"npm run start-client\" \"npm run start-server\"",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",

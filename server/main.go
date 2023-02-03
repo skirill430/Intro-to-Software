@@ -1,10 +1,11 @@
 package main
 
 import (
-	"example/go-server/server/utils"
 	"fmt"
 	"log"
 	"net/http"
+
+	"github.com/skirill430/Quick-Shop/server/utils"
 
 	"github.com/gorilla/mux"
 	"github.com/rs/cors"
