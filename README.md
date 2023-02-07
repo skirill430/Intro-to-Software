@@ -30,3 +30,8 @@ To run the server only:
 ```
 npm run start-server
 ```
+After you run the Server, go to 
+```
+http://localhost:9000/walmart
+```
+in postman, from there it will ask for a search term in the back end console, and then it will call the walmart API and return data relating to it to the back end console.
