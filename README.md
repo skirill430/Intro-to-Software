@@ -28,5 +28,5 @@ ng serve
 
 To run the server only:
 ```
-go run server/main.go
+npm run start-server
 ```
