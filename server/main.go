@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"log"
 	"net/http"
@@ -47,16 +48,22 @@ func helloWorld(w http.ResponseWriter, r *http.Request) {
 
 func walmart(w http.ResponseWriter, r *http.Request) {
 
-	var search string
+	var search []byte
+	var err error
+	var append string
 
-	fmt.Print("Search for: ")
-	fmt.Scanf("%s", &search)
+	//https://www.informit.com/articles/article.aspx?p=2861456&seqNum=7 got the following switch statement form here
+	search, err = ioutil.ReadAll(r.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	//maybe modify the url?
+	append = bytes.NewBuffer(search).String()
+
 	url := "https://walmart.p.rapidapi.com/products/v2/list?cat_id=0&sort=best_seller&page=1&query="
 
-	url = url + search
-
+	fmt.Printf(append)
+	url = url + append
 	req, _ := http.NewRequest("GET", url, nil)
 
 	req.Header.Add("X-RapidAPI-Key", "813328aa2cmshbaf8f8dc041bb3ep1a7203jsnc647b6bcd1c7")
@@ -67,7 +74,8 @@ func walmart(w http.ResponseWriter, r *http.Request) {
 	defer res.Body.Close()
 	body, _ := ioutil.ReadAll(res.Body)
 
-	fmt.Println(res)
-	fmt.Println(string(body))
+	w.Write(body)
+	//fmt.Println(res)
+	//fmt.Println(string(body))
 
 }
