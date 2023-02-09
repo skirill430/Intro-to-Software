@@ -1,43 +1,56 @@
-User Stories
+# Sprint 1
 
-   Sprint 1 oriented:
+## User Stories
+- As someone interested in Quick Shop, I want the website to have a clean looking interface that can communicate with a database/server, so that I can get accurate and updated information about the products I am shopping for.
 
-I want an app that has a communicating front and back end to have a functioning program
+- As a user, I want a search bar that I can type user input into, so that I can view specific items.
 
-I want to have a search bar that I can type user input into
+- As a user, I want to be able to create a list of the items I want, so that I can see all my desired items at a glance.
 
-I want the application to have a database in the backend 
+- As a frequent site visitor who uses multiple devices, I want to connect my lists and other information to an account, so that I can save my lists and access them through any device.
 
-I want there to be an angular framework that successfully runs a website
+- As a person who likes to save money, I want to filter the products by price and other measures (like rating), so that I can get the best possible value. 
 
-I want a clean looking interface to interact with for the program
+- As an avid online shopper, I want to search for a product and get results from several different stores, so that I can save time browsing through various online stores and find the best deal I can.
 
-I want to generate results from APIs when I search for something
-
-   Longer term user stories:
-
-I as a user want a shopping list that will save the items that I favorited when visiting the site previously
-
-As a customer I want to be able to search for a product and get results from several different stores because I want to get the best deal I can.
-
-As a frequent user of this app, I want to be able to log in in order to retrieve my saved data from using the site previously.
-
-As a user I want the site to account for how many of the specified item may be included in a given order because I may want a specific number of my item
+- As a customer, I want the search results to display various information (price, rating, stock availability, etc.), so that I can make an informed purchase.
 
    
-   Issues planned to address:
+## Issues planned to address
+- Set up the GitHub project workflow
 
-Have an angular site that runs 
+- Have a running front-end, Angular application
 
-Have some form of backend that runs
+- Have a running form of back-end using Go
 
-Link the front and backend in communication with each other
+- Link the front-end and back-end, so that they can send and receive requests from each other
 
-Include a search bar in the angular web app
+- Include a search bar in the Angular web app
 
-Get a working database running on the backend side
+- Create and link a database to the back-end
 
-Try sending requests to one of the store APIs
+- Send a request to one of the store APIs and get meaningful data
 
-Send a request through postman and get a result
+- Send a request through Postman and get a result
 
+
+## Issues Successfully Completed
+- Set up the GitHub project workflow
+
+- Have a running front-end, Angular application
+
+- Have a running form of back-end using Go
+
+- Include a search bar in the Angular web app
+
+- Send a request to one of the store APIs and get meaningful data
+
+- Send a request through Postman and get a result
+
+## Issues Not Completed
+- Link the front-end and back-end, so that they can send and receive requests from each other
+  - This did not get completed because we got stuck. Because Professor Dobra mentioned that the front-end and back-end did not need to be communicating for Sprint 1,
+  we felt that we should spend our time getting individual client and server functionality. There were only few examples connecting both Go and Angular, so we  prioritized other tasks.
+  
+- Create and link a database to the back-end
+  - This did not get completed because the back-end team decided to take more time to figure out what database would be best for the website. Using Azure to host a MySQL server was an option they explored, but they were concerned that after the free student trial ended, the website would no longer be functional. Using SQLite was also considered, but the serverless nature does not fit with the desired functionality of our database. Further research will be conducted.
