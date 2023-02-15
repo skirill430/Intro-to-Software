@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HttpService } from './http.service';
 
 @Component({
   selector: 'app-root',
@@ -6,6 +7,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Shopping Test';
+  title = 'Quick Shop';
+  items : any;
   showFiller = false;
+
+  constructor(private httpService: HttpService) {}
+
+  ngOnInit() {
+    this.httpService.getWalmartItems("legos").subscribe(response => {
+      console.log(response);
+      this.items = response;
+    })
+  }
 }
