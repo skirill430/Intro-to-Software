@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpService } from './http.service';
+import * as http from './http.service';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,7 @@ import { HttpService } from './http.service';
 })
 export class AppComponent {
   title = 'Quick Shop';
-  items : any;
+  items : http.RootObject;
   showFiller = false;
 
   constructor(private httpService: HttpService) {}
