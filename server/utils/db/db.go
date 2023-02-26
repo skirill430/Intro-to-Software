@@ -8,9 +8,9 @@ import (
 )
 
 type User struct {
-	Username string `json:"username" gorm:"primaryKey"`
-	Password string `json:"password"`
-	List     string `json:"list"`
+	Username string `json:"username,omitempty" gorm:"primaryKey"`
+	Password string `json:"password,omitempty"`
+	List     string `json:"list,omitempty"`
 }
 
 var DB *gorm.DB

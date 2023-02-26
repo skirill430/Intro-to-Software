@@ -21,7 +21,8 @@ func main() {
 
 	r.HandleFunc("/hello-world", helloWorld)
 	r.HandleFunc("/walmart", walmart)
-	r.HandleFunc("/user/{username}/{password}", handlers.CreateUser).Methods("POST")
+	r.HandleFunc("/signup/{username}/{password}", handlers.CreateUser).Methods("POST")
+	r.HandleFunc("/signin/{username}/{password}", handlers.AuthenticateUser).Methods("POST")
 
 	corsHandler := cors.New(cors.Options{
 		AllowedOrigins: []string{"http://localhost:4200"},
