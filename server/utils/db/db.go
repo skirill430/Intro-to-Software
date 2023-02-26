@@ -8,8 +8,7 @@ import (
 )
 
 type User struct {
-	gorm.Model
-	Name     string `json:"username"`
+	Username string `json:"username" gorm:"primaryKey"`
 	Password string `json:"password"`
 	List     string `json:"list"`
 }
@@ -21,7 +20,20 @@ func ConnectDB() {
 
 	if err != nil {
 		fmt.Println("Could not connect to database.")
+	} else {
+		fmt.Println("Connected to local database: 'users.db'")
 	}
+
+	db.AutoMigrate(&User{})
+
+	// create example user only upon first time creating users.db
+	ex_user := &User{
+		Username: "admin",
+		Password: "123456",
+		List:     "",
+	}
+	// adds example user if database doesn't contain it already
+	db.Where("username = ?", ex_user.Username).FirstOrCreate(&ex_user)
 
 	DB = db
 }

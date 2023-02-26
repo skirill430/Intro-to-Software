@@ -3,30 +3,33 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 
+	"github.com/skirill430/Quick-Shop/server/handlers"
 	"github.com/skirill430/Quick-Shop/server/utils"
-
-	"io/ioutil"
+	"github.com/skirill430/Quick-Shop/server/utils/db"
 
 	"github.com/gorilla/mux"
 	"github.com/rs/cors"
 )
 
 func main() {
-
 	r := mux.NewRouter()
+	db.ConnectDB()
 
 	r.HandleFunc("/hello-world", helloWorld)
 	r.HandleFunc("/walmart", walmart)
+	r.HandleFunc("/user/{username}/{password}", handlers.CreateUser).Methods("POST")
 
 	corsHandler := cors.New(cors.Options{
 		AllowedOrigins: []string{"http://localhost:4200"},
 	})
 
 	fmt.Println("Server running on Port 9000...")
-	log.Fatal(http.ListenAndServe(":9000", corsHandler.Handler(r)))
+	// "127.0.0.1" before port disables firewall popup when running dev environment
+	log.Fatal(http.ListenAndServe("127.0.0.1:9000", corsHandler.Handler(r)))
 }
 
 func helloWorld(w http.ResponseWriter, r *http.Request) {
