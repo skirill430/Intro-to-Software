@@ -8,9 +8,9 @@ import (
 )
 
 type User struct {
-	Username string `json:"username,omitempty" gorm:"primaryKey"`
-	Password string `json:"password,omitempty"`
-	List     string `json:"list,omitempty"`
+	Username string `json:"username" gorm:"primaryKey"`
+	Password string `json:"password"`
+	List     string `json:"list"`
 }
 
 var DB *gorm.DB
@@ -30,7 +30,7 @@ func ConnectDB() {
 	ex_user := &User{
 		Username: "admin",
 		Password: "123456",
-		List:     "",
+		List:     "item1, item2",
 	}
 	// adds example user if database doesn't contain it already
 	db.Where("username = ?", ex_user.Username).FirstOrCreate(&ex_user)

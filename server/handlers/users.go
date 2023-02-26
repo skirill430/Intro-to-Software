@@ -5,27 +5,29 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/gorilla/mux"
 	"github.com/skirill430/Quick-Shop/server/utils/db"
 	"gorm.io/gorm"
 )
 
+/*
+CreateUser Sample request body (json):
+
+	{
+		"username": "Daniel",
+		"password": "password"
+	}
+*/
 func CreateUser(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
-	vars := mux.Vars(r)
+	var user db.User
+	json.NewDecoder(r.Body).Decode(&user)
 
 	// check credentials are valid
-	if vars["username"] == "" || vars["password"] == "" {
+	if user.Username == "" || user.Password == "" {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte("Request Body Missing Fields"))
 		return
-	}
-
-	user := &db.User{
-		Username: vars["username"],
-		Password: vars["password"],
-		List:     "",
 	}
 
 	// add user only if username doesn't exist in database already
@@ -38,22 +40,35 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+/*
+CreateUser Sample request body (json):
+
+	{
+		"username": "admin",
+		"password": "123456"
+	}
+*/
 func AuthenticateUser(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
-	vars := mux.Vars(r)
+	type Credentials struct {
+		Username string `json:"username"`
+		Password string `json:"password"`
+	}
+
+	var inputCredentials Credentials
+	json.NewDecoder(r.Body).Decode(&inputCredentials)
 
 	// check credentials are valid
-	if vars["username"] == "" || vars["password"] == "" {
+	if inputCredentials.Username == "" || inputCredentials.Password == "" {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte("Request Body Missing Fields"))
 		return
 	}
 
-	var user db.User
-
+	var dbUser *db.User
 	// cannot find username in database
-	err := db.DB.First(&user, "username = ?", vars["username"]).Error
+	err := db.DB.First(&dbUser, "username = ?", inputCredentials.Username).Error
 
 	if errors.Is(err, gorm.ErrRecordNotFound) {
 		w.WriteHeader(http.StatusNotFound)
@@ -62,11 +77,11 @@ func AuthenticateUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// password does not match
-	if user.Password != vars["password"] {
+	if inputCredentials.Password != dbUser.Password {
 		w.WriteHeader(http.StatusUnauthorized)
 		w.Write([]byte("Incorrect password. Try again."))
 		return
 	}
 
-	json.NewEncoder(w).Encode(user)
+	json.NewEncoder(w).Encode(dbUser)
 }

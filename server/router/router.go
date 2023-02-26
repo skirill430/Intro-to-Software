@@ -8,8 +8,8 @@ import (
 func Router() *mux.Router {
 	r := mux.NewRouter()
 	r.HandleFunc("/walmart", handlers.Walmart)
-	r.HandleFunc("/signup/{username}/{password}", handlers.CreateUser).Methods("POST")
-	r.HandleFunc("/signin/{username}/{password}", handlers.AuthenticateUser).Methods("POST")
+	r.HandleFunc("/api/user/signup", handlers.CreateUser).Methods("POST")
+	r.HandleFunc("/api/user/signin", handlers.AuthenticateUser).Methods("POST")
 
 	return r
 }
