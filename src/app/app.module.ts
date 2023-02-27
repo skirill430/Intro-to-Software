@@ -9,8 +9,6 @@ import { FormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { HttpClientTestingModule} from '@angular/common/http/testing';
-
 
 
 import { AppComponent } from './app.component';
@@ -32,7 +30,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatFormFieldModule,
     MatInputModule,
     HttpClientModule,
-    HttpClientTestingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
