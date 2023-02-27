@@ -32,14 +32,15 @@
   </mat-toolbar>
   
   <!-- Search Input Box in Main Body -->
-  <form class="example-form">
-    <mat-form-field class="example-full-width">
+  <form (change)="save()">
+    <mat-form-field>
       <mat-label>Search</mat-label>
-      <input matInput placeholder="Ex. Dress Shoes">
+      <input matInput placeholder="Ex. Dress Shoes" [(ngModel)]="search" name="Input">
     </mat-form-field>
   </form>
 
-  <table class="table table-striped">
+  <!-- Main Body Table Output -->
+  <table *ngIf="items" class="table table-striped">
     <thead>
         <tr>
           <th>name</th>
@@ -50,10 +51,10 @@
     </thead>
     <tbody>
       <tr *ngFor="let item of items.data.search.searchResult.itemStacks[0].items">
-        <td>{{ item.name }}</td>
-        <td>{{ item.averageRating }}</td>
-        <td>{{ item.priceInfo.currentPrice.price }}</td>
-        <td>{{ item.sellerName }}</td>
+        <td>{{ item?.name || "Undefined"}}</td>
+        <td>{{ item?.averageRating || -1}}</td>
+        <td>{{ item?.priceInfo?.currentPrice?.price || -1}}</td>
+        <td>{{ item?.sellerName || "Undefined"}}</td>
       </tr>
     </tbody>
   </table>

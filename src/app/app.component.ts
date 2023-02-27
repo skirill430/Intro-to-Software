@@ -10,12 +10,20 @@ import * as http from './http.service';
 export class AppComponent {
   title = 'Quick Shop';
   items : http.RootObject;
+  search : string;
   showFiller = false;
 
   constructor(private httpService: HttpService) {}
 
   ngOnInit() {
     this.httpService.getWalmartItems("legos").subscribe(response => {
+      console.log(response);
+      this.items = response;
+    })
+  }
+  save() {
+    console.log(this.search);
+    this.httpService.getWalmartItems(this.search).subscribe(response => {
       console.log(response);
       this.items = response;
     })
