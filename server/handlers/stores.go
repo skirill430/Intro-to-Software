@@ -42,7 +42,7 @@ func Walmart(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func target(w http.ResponseWriter, r *http.Request) {
+func Target(w http.ResponseWriter, r *http.Request) {
 
 	var search []byte
 	var err error

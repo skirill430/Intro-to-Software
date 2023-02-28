@@ -8,7 +8,7 @@ import (
 func Router() *mux.Router {
 	r := mux.NewRouter()
 	r.HandleFunc("/walmart", handlers.Walmart)
-	r.HandleFunc("/target", handlers.target)
+	r.HandleFunc("/target", handlers.Target)
 	r.HandleFunc("/api/user/signup", handlers.CreateUser).Methods("POST")
 	r.HandleFunc("/api/user/signin", handlers.AuthenticateUser).Methods("POST")
 
