@@ -40,4 +40,25 @@ describe('AppComponent', () => {
     const app = fixture.componentInstance;
     expect(app.title).toEqual('Quick Shop');
   });
+
+  it('should render a search text box', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector("mat-form-field input[name='Input']")).toBeTruthy();
+  });
+
+  it('should render a toolbar', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector("mat-drawer-container mat-toolbar[color='primary']")).toBeTruthy();
+  });
+
+  it('should render a sidebar', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector("mat-drawer-container mat-drawer[mode='side']")).toBeTruthy();
+  });
 });
