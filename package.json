@@ -9,8 +9,8 @@
     "start_build": "concurrently --kill-others \"npm build:prod\" \"npm run start-server\"",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "build:prod": "ng build --prod",
-    "test": "ng test"
+    "build:prod": "ng build --configuration production --base-href https://skirill430.github.io/Quick-Shop/",
+    "test:headless": "ng test --watch=false --browsers=ChromeHeadless"
   },
   "private": true,
   "dependencies": {
