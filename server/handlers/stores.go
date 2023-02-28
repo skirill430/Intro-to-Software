@@ -41,3 +41,38 @@ func Walmart(w http.ResponseWriter, r *http.Request) {
 	//fmt.Println(string(body))
 
 }
+
+func target(w http.ResponseWriter, r *http.Request) {
+
+	var search []byte
+	var err error
+	var append string
+
+	search, err = ioutil.ReadAll(r.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	append = bytes.NewBuffer(search).String()
+
+	url := "https://target1.p.rapidapi.com/products/v2/list?store_id=911&category=5xtg6&keyword="
+	url2 := "&count=20&offset=0&default_purchasability_filter=true&sort_by=relevance"
+
+	fmt.Printf(append)
+	url = url + append + url2
+
+	req, _ := http.NewRequest("GET", url, nil)
+
+	req.Header.Add("X-RapidAPI-Key", "813328aa2cmshbaf8f8dc041bb3ep1a7203jsnc647b6bcd1c7")
+	req.Header.Add("X-RapidAPI-Host", "target1.p.rapidapi.com")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	w.Write(body)
+	//fmt.Println(res)
+	//fmt.Println(string(body))
+
+}
