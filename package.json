@@ -8,6 +8,7 @@
     "start": "concurrently --kill-others \"npm run start-client\" \"npm run start-server\"",
     "start_build": "npm run build:prod & npm run buildserver:prod",
     "build": "ng build",
+    "testserver": "cd server && go test",
     "buildserver:prod": "cd server && env GOOS=linux GOARCH=amd64 go build",
     "watch": "ng build --watch --configuration development",
     "build:prod": "ng build --configuration production --base-href https://skirill430.github.io/Quick-Shop/",
