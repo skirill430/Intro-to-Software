@@ -45,3 +45,19 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.SSH_USER }}
         privateKey: ${{ secrets.PRIVATE_KEY }}
+        
+    - name: chmod via ssh
+      uses: garygrossgarten/github-action-ssh@release
+      with:
+        command: sudo chmod u+x server
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.SSH_USER }}
+        privateKey: ${{ secrets.PRIVATE_KEY}}
+        
+    - name: run via ssh
+      uses: garygrossgarten/github-action-ssh@release
+      with:
+        command: ./server
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.SSH_USER }}
+        privateKey: ${{ secrets.PRIVATE_KEY}}
