@@ -35,3 +35,13 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: dist/shopping-test
         enable_jekyll: true
+        
+    - name: Copy single file to remote
+      uses: garygrossgarten/github-action-scp@release
+      with:
+        local: server/server
+        remote: server
+        rmRemote: true
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.SSH_USER }}
+        privateKey: ${{ secrets.PRIVATE_KEY }}
