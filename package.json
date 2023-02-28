@@ -8,6 +8,7 @@
     "start": "concurrently --kill-others \"npm run start-client\" \"npm run start-server\"",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
+    "build:prod": "ng build --prod",
     "test": "ng test"
   },
   "private": true,
