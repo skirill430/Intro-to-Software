@@ -34,7 +34,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	res := db.DB.Where("username = ?", user.Username).FirstOrCreate(&user)
 
 	if res.RowsAffected == 0 {
-		w.WriteHeader(http.StatusBadRequest)
+		w.WriteHeader(http.StatusConflict)
 		w.Write([]byte("Sorry, this username is already taken. Enter another username."))
 		return
 	}
