@@ -1,0 +1,50 @@
+<!-- Header -->
+<p>
+    <mat-toolbar color = "primary">
+      <span>Quick Shop Login Page</span>
+    </mat-toolbar>
+</p>
+
+<h1 style="text-align:center">
+    Enter your username and password to login
+</h1>
+ 
+<!-- Username input -->
+<div [formGroup]="LoginForm" style="text-align:center">
+<mat-form-field>
+    <mat-label>Name</mat-label>
+    <input formControlName="usernameControl" matInput placeholder="Ex. John Smith" name="Username">
+</mat-form-field>
+</div>
+
+<!-- Password input -->
+<!-- TODO: hide text as user types it -->
+<div [formGroup]="LoginForm" style="text-align:center">
+<mat-form-field>
+    <mat-label>Password</mat-label>
+    <input formControlName="passwordControl" matInput placeholder="" name="Password">
+</mat-form-field>
+</div>
+
+<!-- Submit Button -->
+<section style="text-align:center">
+    <div class="example-button-row">
+        <!-- Login button -->
+        <div>
+            <!-- login header -->
+            <h1>
+                For returning users:
+            </h1>
+            <button (click)="sendLogin()" routerLink="home" mat-raised-button color="primary">Log In</button>
+        </div>
+
+        <!-- Signup button -->
+        <div>
+            <!-- sign up header -->
+            <h1>
+                For new users:
+            </h1>
+            <button (click)="sendSignup()" routerLink="home" mat-raised-button color="primary">Sign Up</button>
+        </div>
+    </div>
+</section>

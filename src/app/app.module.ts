@@ -10,13 +10,16 @@ import {HttpClientModule} from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { HttpService } from './http.service';
-
 import { AppComponent } from './app.component';
+import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppRoutingModule, routingComponents } from './app-routing.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    routingComponents
   ],
   imports: [
     BrowserModule,
@@ -30,7 +33,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatFormFieldModule,
     MatInputModule,
     HttpClientModule,
-    MatSidenavModule
+    MatSidenavModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    RouterModule
   ],
   providers: [HttpService],
   bootstrap: [AppComponent]

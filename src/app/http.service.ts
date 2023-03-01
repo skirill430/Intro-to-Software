@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
   export interface Meta {
@@ -471,11 +471,22 @@ import { Observable } from 'rxjs';
 })
 export class HttpService {
 
-  private url = 'http://localhost:9000/walmart'
-
-  constructor(private http: HttpClient) { }
-
-  getWalmartItems(query : String) : Observable<RootObject> {
-    return this.http.post<RootObject>(this.url, query);
+    private walmartURL = 'http://localhost:9000/walmart'
+    private signupUserURL = 'http://localhost:9000/api/user/signup'
+    private loginUserURL = 'http://localhost:9000/api/user/signin'
+  
+    constructor(private http: HttpClient) { }
+  
+    getWalmartItems(query : String) : Observable<RootObject> {
+      return this.http.post<RootObject>(this.walmartURL, query);
+    }
+  
+  //   sign up button call
+    sendSignupInfo(username : String, password : String) : Observable<HttpResponse<any>>  {
+      return this.http.post<HttpResponse<any>>(this.signupUserURL, { username: username, password: password }, {observe : 'response'});
+    }
+  //   log in button call
+    sendLoginInfo(username : String, password : String) : Observable<HttpResponse<any>>  {
+      return this.http.post<HttpResponse<any>>(this.loginUserURL, { username: username, password: password }, {observe : 'response'});
+    }
   }
-}

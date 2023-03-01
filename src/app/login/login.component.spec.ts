@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
-import { AppComponent } from './app.component';
-import { HttpService } from './http.service';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AppComponent } from '../app.component';
+import { HttpService } from '../http.service';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
@@ -15,31 +15,30 @@ import {HttpClientModule} from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppRoutingModule, routingComponents } from './app-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AppRoutingModule, routingComponents } from '../app-routing.module';
 
+import { LoginComponent } from './login.component';
 
-describe('AppComponent', () => {
+describe('LoginComponent', () => {
+  let component: LoginComponent;
+  let fixture: ComponentFixture<LoginComponent>;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, MatSidenavModule, MatSlideToggleModule, MatToolbarModule, MatIconModule, MatButtonModule, FormsModule,
-      MatFormFieldModule, MatInputModule, BrowserAnimationsModule, AppRoutingModule],
+      MatFormFieldModule, MatInputModule, BrowserAnimationsModule, ReactiveFormsModule],
       providers: [HttpService],
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
+      declarations: [ LoginComponent ]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(LoginComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+  it('should create', () => {
+    expect(component).toBeTruthy();
   });
-
-  it(`should have as title 'Quick Shop'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('Quick Shop');
-  });
-
 });
