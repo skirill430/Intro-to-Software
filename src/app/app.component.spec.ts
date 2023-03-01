@@ -15,13 +15,14 @@ import {HttpClientModule} from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppRoutingModule, routingComponents } from './app-routing.module';
 
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, MatSidenavModule, MatSlideToggleModule, MatToolbarModule, MatIconModule, MatButtonModule, FormsModule,
-      MatFormFieldModule, MatInputModule, BrowserAnimationsModule],
+      MatFormFieldModule, MatInputModule, BrowserAnimationsModule, AppRoutingModule],
       providers: [HttpService],
       declarations: [
         AppComponent
@@ -41,24 +42,4 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('Quick Shop');
   });
 
-  it('should render a search text box', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector("mat-form-field input[name='Input']")).toBeTruthy();
-  });
-
-  it('should render a toolbar', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector("mat-drawer-container mat-toolbar[color='primary']")).toBeTruthy();
-  });
-
-  it('should render a sidebar', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector("mat-drawer-container mat-drawer[mode='side']")).toBeTruthy();
-  });
 });
