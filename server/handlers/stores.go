@@ -24,7 +24,7 @@ func Walmart(w http.ResponseWriter, r *http.Request) {
 
 	url := "https://walmart.p.rapidapi.com/products/v2/list?cat_id=0&sort=best_seller&page=1&query="
 
-	fmt.Printf(append)
+	fmt.Println(append)
 	url = url + append
 	req, _ := http.NewRequest("GET", url, nil)
 
@@ -58,7 +58,7 @@ func Target(w http.ResponseWriter, r *http.Request) {
 	url := "https://target1.p.rapidapi.com/products/v2/list?store_id=911&category=5xtg6&keyword="
 	url2 := "&count=20&offset=0&default_purchasability_filter=true&sort_by=relevance"
 
-	fmt.Printf(append)
+	fmt.Println(append)
 	url = url + append + url2
 
 	req, _ := http.NewRequest("GET", url, nil)
