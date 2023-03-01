@@ -481,6 +481,6 @@ export class HttpService {
   }
 
   sendLoginInfo(username : String, password : String) : Observable<HttpResponse<any>>  {
-    return this.http.post<HttpResponse<any>>(this.createUserURL, { username: username, password: password });
+    return this.http.post<HttpResponse<any>>(this.createUserURL, { username: username, password: password }, {observe : 'response'});
   }
 }
