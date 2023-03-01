@@ -1,0 +1,95 @@
+name: CI
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  angular:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3.3.0
+      with:
+        lfs: true
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3.6.0
+      with:
+        node-version: '16'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run unit tests
+      run: npm run test:headless
+
+    - name: Build
+      run: npm run build:prod
+        
+    - name: Tar Files
+      run: |
+        tar -cvf angular.tar -C dist/shopping-test .
+    - name: SCP Files via SSH
+      uses: appleboy/scp-action@master
+      env:
+        USERNAME: ${{ secrets.SSH_USER }}
+        HOST: ${{ secrets.HOST }}
+        KEY: ${{ secrets.PRIVATE_KEY }}
+      with:
+        source: 'angular.tar'
+        target: '.'
+    
+    - name: Extract Files
+      uses: appleboy/ssh-action@v0.1.8
+      env:
+        USERNAME: ${{ secrets.SSH_USER }}
+        HOST: ${{ secrets.HOST }}
+        KEY: ${{ secrets.PRIVATE_KEY }}
+      with:
+        script: tar -xf angular.tar
+		
+  go:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3.3.0
+      with:
+        lfs: true
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3.6.0
+      with:
+        node-version: '16'
+
+    - name: Install dependencies
+      run: npm install
+      
+    - name: Run unit tests
+      run: npm run testserver
+      
+    - name: Build
+      run: npm run buildserver:prod
+      
+    - name: Tar Files
+      run: |
+        tar -cvf go.tar server/server
+    - name: SCP Files via SSH
+      uses: appleboy/scp-action@master
+      env:
+        USERNAME: ${{ secrets.SSH_USER }}
+        HOST: ${{ secrets.HOST }}
+        KEY: ${{ secrets.PRIVATE_KEY }}
+      with:
+        source: 'go.tar'
+        target: '.'
+    
+    - name: Extract Files
+      uses: appleboy/ssh-action@v0.1.8
+      env:
+        USERNAME: ${{ secrets.SSH_USER }}
+        HOST: ${{ secrets.HOST }}
+        KEY: ${{ secrets.PRIVATE_KEY }}
+      with:
+        script: tar -xf go.tar
