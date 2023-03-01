@@ -23,7 +23,7 @@ jobs:
       run: npm install
 
     - name: Run tests
-      run: npm run test:headless
+      run: npm run start-tests
 
     - name: Build
       run: npm run start_build
@@ -36,12 +36,26 @@ jobs:
         publish_dir: dist/shopping-test
         enable_jekyll: true
         
-    - name: Copy single file to remote
-      uses: garygrossgarten/github-action-scp@release
+    - name: Tar Files
+      run: |
+        tar -cvf deploy.tar server/server
+    - name: SCP Files via SSH
+      uses: appleboy/scp-action@master
+      env:
+        USERNAME: ${{ secrets.SSH_USER }}
+        HOST: ${{ secrets.HOST }}
+        KEY: ${{ secrets.PRIVATE_KEY }}
       with:
-        local: server/server
-        remote: server
-        rmRemote: true
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.SSH_USER }}
-        privateKey: ${{ secrets.PRIVATE_KEY }}
+        source: 'deploy.tar'
+        target: '.'
+    
+    - name: Extract Files
+      uses: appleboy/ssh-action@v0.1.8
+      env:
+        USERNAME: ${{ secrets.SSH_USER }}
+        HOST: ${{ secrets.HOST }}
+        KEY: ${{ secrets.PRIVATE_KEY }}
+      with:
+        script: |
+          tar -xf deploy.tar
+          ls -al

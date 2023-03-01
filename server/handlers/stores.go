@@ -3,7 +3,7 @@ package handlers
 import (
 	"bytes"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 )
@@ -15,7 +15,7 @@ func Walmart(w http.ResponseWriter, r *http.Request) {
 	var append string
 
 	//https://www.informit.com/articles/article.aspx?p=2861456&seqNum=7 got the following switch statement form here
-	search, err = ioutil.ReadAll(r.Body)
+	search, err = io.ReadAll(r.Body)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -31,10 +31,15 @@ func Walmart(w http.ResponseWriter, r *http.Request) {
 	req.Header.Add("X-RapidAPI-Key", "813328aa2cmshbaf8f8dc041bb3ep1a7203jsnc647b6bcd1c7")
 	req.Header.Add("X-RapidAPI-Host", "walmart.p.rapidapi.com")
 
-	res, _ := http.DefaultClient.Do(req)
+	res, err := http.DefaultClient.Do(req)
+
+	if err != nil {
+		fmt.Println("An error connecting to Walmart occurred.")
+		return
+	}
 
 	defer res.Body.Close()
-	body, _ := ioutil.ReadAll(res.Body)
+	body, _ := io.ReadAll(res.Body)
 
 	w.Write(body)
 	//fmt.Println(res)
@@ -48,7 +53,7 @@ func Target(w http.ResponseWriter, r *http.Request) {
 	var err error
 	var append string
 
-	search, err = ioutil.ReadAll(r.Body)
+	search, err = io.ReadAll(r.Body)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -66,10 +71,15 @@ func Target(w http.ResponseWriter, r *http.Request) {
 	req.Header.Add("X-RapidAPI-Key", "813328aa2cmshbaf8f8dc041bb3ep1a7203jsnc647b6bcd1c7")
 	req.Header.Add("X-RapidAPI-Host", "target1.p.rapidapi.com")
 
-	res, _ := http.DefaultClient.Do(req)
+	res, err := http.DefaultClient.Do(req)
+
+	if err != nil {
+		fmt.Println("An error connecting to Target occurred.")
+		return
+	}
 
 	defer res.Body.Close()
-	body, _ := ioutil.ReadAll(res.Body)
+	body, _ := io.ReadAll(res.Body)
 
 	w.Write(body)
 	//fmt.Println(res)
