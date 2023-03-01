@@ -1,10 +1,16 @@
 # Sprint 2
 
 ## Work Completed
+
+## General / Quality of Life
+ - Implemented a continuous integration system using GitHub actions to run unit tests, cypress tests, and build production files that are then deployed to a server.
+ - 
 ### Frontend
+ - Implemented an HTTP service to retrieve data from the back end and then display it to a table.
  - Implemented routing in Angular in order to support switching between multiple pages. 
  - Reorganized the file structure for the components to make for more coherent code. 
- - Created a separate login page from the home page where the main functionality is. 
+ - Created a separate login page from the home page where the main functionality is.
+ - Implemented HTTP post requests to allow users to sign up or log in.
  - Login page has two input forms for users to fill out and buttons for new users to sign up and returning users to log in.
 
 ### Backend
@@ -16,10 +22,10 @@
 - Created unit tests for user sign-up and sign-in routes.
 
 ## Frontend Tests
-### Unit Tests:
-
+### Angular Unit Tests:
+Render Toolbar, Render Sidebar, Render Search Text Box, Create HomeComponent, Create AppComponent, Title 'Quick Shop', Create HttpService, Create LoginComponent
 ### Cypress Test:
-
+Home (Tests home page by typing a query in the search box and testing for results)
 ## Backend Tests
 ### Store Unit Tests:
 TestWalmart, TestTarget
