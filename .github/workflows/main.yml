@@ -48,8 +48,9 @@ jobs:
         HOST: ${{ secrets.HOST }}
         KEY: ${{ secrets.PRIVATE_KEY }}
       with:
-        script: tar -xf angular.tar
-		
+        script: |
+          tar -xf angular.tar
+
   go:
     runs-on: ubuntu-latest
     steps:
