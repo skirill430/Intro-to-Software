@@ -7,12 +7,26 @@
 ## Frontend Tests
 
 ## Backend Tests
+### Store Tests
+Calls the walmart and target API with a search for "shoes" in the body. Checks if the returned body has proper query result such as "shoes". If this is true, it passes the test
 
 ## Documentation of backend API
 
 ### Store Methods:
 ### Walmart
+Recieves a search request from the front end body and then passes that to the Walmart API, returns JSON list to front end body
+- Path: `/walmart`
+- HTTP  METHOD: `GET`
+- HTTP Status Responses:
+    - 200 OK (success)
+
+
 ### Target
+Recieves a search request from the front end body and then passes that to the Target API, returns JSON list to front end body
+-Path: `/Target`
+-HTTP  METHOD: `GET`
+- HTTP Status Responses:
+    - 200 OK (success)
 
 ### User Methods:
 #### Create User
