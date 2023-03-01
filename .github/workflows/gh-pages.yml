@@ -23,7 +23,7 @@ jobs:
       run: npm install
 
     - name: Run tests
-      run: npm run start-tests
+      run: npm run test
 
     - name: Build
       run: npm run start_build
