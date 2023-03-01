@@ -10,8 +10,8 @@ export class LoginComponent {
   title = 'Login Page';
   constructor(private router:Router){}
 
-  // function to take user to home page (not working)
-  goToPage(pageName:string):void {
-    this.router.navigate([`${pageName}`]);
-  }
+  // // function to take user to home page (not used)
+  // goToPage(pageName:string):void {
+  //   this.router.navigate([`${pageName}`]);
+  // }
 }
