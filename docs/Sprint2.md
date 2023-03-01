@@ -16,14 +16,14 @@
 - Created unit tests for user sign-up and sign-in routes.
 
 ## Frontend Tests
-#### Unit Tests:
+### Unit Tests:
 
-#### Cypress Test:
+### Cypress Test:
 
 ## Backend Tests
-#### Store Unit Tests:
+### Store Unit Tests:
 TestWalmart, TestTarget
-#### User Unit Tests:
+### User Unit Tests:
 TestSignUp_OK, TestSignUp_TakenUsername, TestSignIn_OK, TestSignIn_UsernameNotFound, TestSignIn_PasswordIncorrect
 
 ## Documentation of backend API
@@ -39,8 +39,8 @@ Recieves a search request from the front end body and then passes that to the Wa
 
 #### Target
 Recieves a search request from the front end body and then passes that to the Target API, returns JSON list to front end body
--Path: `/Target`
--HTTP  METHOD: `GET`
+- Path: `/Target`
+- HTTP  METHOD: `GET`
 - HTTP Status Responses:
     - 200 OK (success)
 
