@@ -36,10 +36,10 @@ jobs:
         publish_dir: dist/shopping-test
         enable_jekyll: true
         
-    - name: Run a multi-line script
+    - name: Tar Files
       run: |
         tar -cvf deploy.tar server/server
-    - name: SCP files via ssh key
+    - name: SCP Files via SSH
       uses: appleboy/scp-action@master
       env:
         USERNAME: ${{ secrets.SSH_USER }}
@@ -49,7 +49,7 @@ jobs:
         source: 'deploy.tar'
         target: '.'
     
-    - name: Extract files
+    - name: Extract Files
       uses: appleboy/ssh-action@v0.1.8
       env:
         USERNAME: ${{ secrets.SSH_USER }}
