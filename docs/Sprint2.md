@@ -2,7 +2,14 @@
 
 ## Work Completed
 ### Frontend
+ - Implemented routing in Angular in order to support switching between multiple pages. 
+ - Reorganized the file structure for the components to make for more coherent code. 
+ - Created a separate login page from the home page where the main functionality is. 
+ - Login page has two input forms for users to fill out and buttons for new users to sign up and returning users to log in.
+
 ### Backend
+- Added a second API that gets search results from Target store. 
+- Implemented unit tests for the two APIS 
 
 ## Frontend Tests
 
