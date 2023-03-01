@@ -29,7 +29,22 @@
 <!-- Submit Button -->
 <section style="text-align:center">
     <div class="example-button-row">
-        <!-- TODO: save user data to database -->
-      <button (click)="sendInfo()" routerLink="home" mat-raised-button color="primary">Submit!</button>
+        <!-- Login button -->
+        <div>
+            <!-- login header -->
+            <h1>
+                For returning users:
+            </h1>
+            <button (click)="sendLogin()" routerLink="home" mat-raised-button color="primary">Log In</button>
+        </div>
+
+        <!-- Signup button -->
+        <div>
+            <!-- sign up header -->
+            <h1>
+                For new users:
+            </h1>
+            <button (click)="sendSignup()" routerLink="home" mat-raised-button color="primary">Sign Up</button>
+        </div>
     </div>
 </section>

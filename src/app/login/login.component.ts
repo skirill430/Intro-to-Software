@@ -18,10 +18,19 @@ export class LoginComponent {
   constructor(private router:Router, private httpService: HttpService){}
 
 
-  sendInfo() {
+  sendSignup() {
     console.log(this.LoginForm.controls.usernameControl.value);
     console.log(this.LoginForm.controls.passwordControl.value);
     
+    this.httpService.sendSignupInfo(this.LoginForm.controls.usernameControl.value, this.LoginForm.controls.passwordControl.value).subscribe(response => {
+      console.log(response.status);
+    })
+  }
+
+  sendLogin() {
+    console.log(this.LoginForm.controls.usernameControl.value);
+    console.log(this.LoginForm.controls.passwordControl.value);
+
     this.httpService.sendLoginInfo(this.LoginForm.controls.usernameControl.value, this.LoginForm.controls.passwordControl.value).subscribe(response => {
       console.log(response.status);
     })

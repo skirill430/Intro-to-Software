@@ -471,16 +471,22 @@ import { Observable } from 'rxjs';
 })
 export class HttpService {
 
-  private walmartURL = 'http://localhost:9000/walmart'
-  private createUserURL = 'http://localhost:9000/api/user/signup'
-
-  constructor(private http: HttpClient) { }
-
-  getWalmartItems(query : String) : Observable<RootObject> {
-    return this.http.post<RootObject>(this.walmartURL, query);
+    private walmartURL = 'http://localhost:9000/walmart'
+    private signupUserURL = 'http://localhost:9000/api/user/signup'
+    private loginUserURL = 'http://localhost:9000/api/user/signin'
+  
+    constructor(private http: HttpClient) { }
+  
+    getWalmartItems(query : String) : Observable<RootObject> {
+      return this.http.post<RootObject>(this.walmartURL, query);
+    }
+  
+  //   sign up button call
+    sendSignupInfo(username : String, password : String) : Observable<HttpResponse<any>>  {
+      return this.http.post<HttpResponse<any>>(this.signupUserURL, { username: username, password: password }, {observe : 'response'});
+    }
+  //   log in button call
+    sendLoginInfo(username : String, password : String) : Observable<HttpResponse<any>>  {
+      return this.http.post<HttpResponse<any>>(this.loginUserURL, { username: username, password: password }, {observe : 'response'});
+    }
   }
-
-  sendLoginInfo(username : String, password : String) : Observable<HttpResponse<any>>  {
-    return this.http.post<HttpResponse<any>>(this.createUserURL, { username: username, password: password }, {observe : 'response'});
-  }
-}
