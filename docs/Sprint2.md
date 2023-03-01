@@ -3,6 +3,8 @@
 ## Work Completed
 ### Frontend
 ### Backend
+- Added a second API that gets search results from Target store. 
+- Implemented unit tests for the two APIS 
 
 ## Frontend Tests
 
