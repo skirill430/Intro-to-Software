@@ -5,18 +5,13 @@ import (
 	"errors"
 	"net/http"
 
+	"github.com/skirill430/Quick-Shop/server/utils"
 	"github.com/skirill430/Quick-Shop/server/utils/db"
+
+	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
 
-/*
-CreateUser Sample request body (json):
-
-	{
-		"username": "Daniel",
-		"password": "password"
-	}
-*/
 func CreateUser(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -30,6 +25,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	user.Password = utils.HashAndSalt([]byte(user.Password))
 	// add user only if username doesn't exist in database already
 	res := db.DB.Where("username = ?", user.Username).FirstOrCreate(&user)
 
@@ -40,14 +36,6 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-/*
-CreateUser Sample request body (json):
-
-	{
-		"username": "admin",
-		"password": "123456"
-	}
-*/
 func AuthenticateUser(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -77,7 +65,9 @@ func AuthenticateUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// password does not match
-	if inputCredentials.Password != dbUser.Password {
+	err = bcrypt.CompareHashAndPassword([]byte(dbUser.Password), []byte(inputCredentials.Password))
+
+	if err != nil {
 		w.WriteHeader(http.StatusUnauthorized)
 		w.Write([]byte("Incorrect password. Try again."))
 		return

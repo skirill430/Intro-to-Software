@@ -3,6 +3,8 @@ package db
 import (
 	"fmt"
 
+	"github.com/skirill430/Quick-Shop/server/utils"
+
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
@@ -28,8 +30,8 @@ func ConnectDB() {
 
 	// create example user only upon first time creating users.db
 	ex_user := &User{
-		Username: "admin",
-		Password: "123456",
+		Username: "example_user",
+		Password: utils.HashAndSalt([]byte("123456")),
 		List:     "item1, item2",
 	}
 	// adds example user if database doesn't contain it already
