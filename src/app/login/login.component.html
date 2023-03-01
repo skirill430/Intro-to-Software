@@ -10,19 +10,19 @@
 </h1>
  
 <!-- Username input -->
-<div style="text-align:center">
+<div [formGroup]="LoginForm" style="text-align:center">
 <mat-form-field>
     <mat-label>Name</mat-label>
-    <input matInput placeholder="Ex. John Smith">
+    <input formControlName="usernameControl" matInput placeholder="Ex. John Smith" name="Username">
 </mat-form-field>
 </div>
 
 <!-- Password input -->
 <!-- TODO: hide text as user types it -->
-<div style="text-align:center">
+<div [formGroup]="LoginForm" style="text-align:center">
 <mat-form-field>
     <mat-label>Password</mat-label>
-    <input matInput placeholder="">
+    <input formControlName="passwordControl" matInput placeholder="" name="Password">
 </mat-form-field>
 </div>
 
@@ -30,6 +30,6 @@
 <section style="text-align:center">
     <div class="example-button-row">
         <!-- TODO: save user data to database -->
-      <button routerLink="home" mat-raised-button color="primary">Submit!</button>
+      <button (click)="sendInfo()" routerLink="home" mat-raised-button color="primary">Submit!</button>
     </div>
 </section>

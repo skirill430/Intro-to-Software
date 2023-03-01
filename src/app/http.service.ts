@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
   export interface Meta {
@@ -471,11 +471,16 @@ import { Observable } from 'rxjs';
 })
 export class HttpService {
 
-  private url = 'http://localhost:9000/walmart'
+  private walmartURL = 'http://localhost:9000/walmart'
+  private createUserURL = 'http://localhost:9000/api/user/signup'
 
   constructor(private http: HttpClient) { }
 
   getWalmartItems(query : String) : Observable<RootObject> {
-    return this.http.post<RootObject>(this.url, query);
+    return this.http.post<RootObject>(this.walmartURL, query);
+  }
+
+  sendLoginInfo(username : String, password : String) : Observable<HttpResponse<any>>  {
+    return this.http.post<HttpResponse<any>>(this.createUserURL, { username: username, password: password });
   }
 }
