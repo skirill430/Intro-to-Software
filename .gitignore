@@ -38,3 +38,4 @@ testem.log
 Thumbs.db  
 
 /server/*.db
+/server/testing/*.db
