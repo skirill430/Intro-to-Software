@@ -9,18 +9,27 @@
 
 ### Backend
 - Added a second API that gets search results from Target store. 
-- Implemented unit tests for the two APIS 
+- Implemented unit tests for the two APIS.
+- Set up a SQLite database to store user information.
+- Created routes and handler functions for user sign-up and sign-in that interact with local database to verify the given credentials, returning the appropriate HTTP status response.
+- Implemented hashing and salting of user passwords.
+- Created unit tests for user sign-up and sign-in routes.
 
 ## Frontend Tests
+#### Unit Tests:
+
+#### Cypress Test:
 
 ## Backend Tests
-### Store Tests
-Calls the walmart and target API with a search for "shoes" in the body. Checks if the returned body has proper query result such as "shoes". If this is true, it passes the test
+#### Store Unit Tests:
+TestWalmart, TestTarget
+#### User Unit Tests:
+TestSignUp_OK, TestSignUp_TakenUsername, TestSignIn_OK, TestSignIn_UsernameNotFound, TestSignIn_PasswordIncorrect
 
 ## Documentation of backend API
 
 ### Store Methods:
-### Walmart
+#### Walmart
 Recieves a search request from the front end body and then passes that to the Walmart API, returns JSON list to front end body
 - Path: `/walmart`
 - HTTP  METHOD: `GET`
@@ -28,7 +37,7 @@ Recieves a search request from the front end body and then passes that to the Wa
     - 200 OK (success)
 
 
-### Target
+#### Target
 Recieves a search request from the front end body and then passes that to the Target API, returns JSON list to front end body
 -Path: `/Target`
 -HTTP  METHOD: `GET`
