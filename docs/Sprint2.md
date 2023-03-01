@@ -4,7 +4,8 @@
 
 ## General / Quality of Life
  - Implemented a continuous integration system using GitHub actions to run unit tests, cypress tests, and build production files that are then deployed to a server.
- - 
+
+
 ### Frontend
  - Implemented an HTTP service to retrieve data from the back end and then display it to a table.
  - Implemented routing in Angular in order to support switching between multiple pages. 
