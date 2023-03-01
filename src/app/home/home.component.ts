@@ -9,7 +9,7 @@ import * as http from '../http.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  title = 'Quick Shop';
+  title = 'Home Page';
   items : http.RootObject;
   search : string;
   showFiller = false;

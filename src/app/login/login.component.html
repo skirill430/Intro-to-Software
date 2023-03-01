@@ -5,12 +5,12 @@
     </mat-toolbar>
 </p>
 
-<section>
+<h1 style="text-align:center">
     Enter your username and password to login
-</section>
+</h1>
  
 <!-- Username input -->
-<div>
+<div style="text-align:center">
 <mat-form-field>
     <mat-label>Name</mat-label>
     <input matInput placeholder="Ex. John Smith">
@@ -19,7 +19,7 @@
 
 <!-- Password input -->
 <!-- TODO: hide text as user types it -->
-<div>
+<div style="text-align:center">
 <mat-form-field>
     <mat-label>Password</mat-label>
     <input matInput placeholder="">
@@ -27,17 +27,9 @@
 </div>
 
 <!-- Submit Button -->
-<section>
+<section style="text-align:center">
     <div class="example-button-row">
-        <!-- TODO: should take user to home page -->
         <!-- TODO: save user data to database -->
-      <button (click)="goToPage('Home')" mat-raised-button color="primary">Submit!</button>
-    </div>
-</section>
-
-<!-- Testing link to home page (Probably delete later)-->
-<section>
-    <div class="example-button-row">
-        <a mat-button href="http://localhost:4200/home" target="_blank">Link</a>
+      <button (click)="goToPage('home')" mat-raised-button color="primary">Submit!</button>
     </div>
 </section>
