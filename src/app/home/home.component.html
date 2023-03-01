@@ -1,0 +1,62 @@
+<!-- Container to be shifted for Sidenav (Full Screen) -->
+<mat-drawer-container autosize>
+  
+    <!-- Side Navigation Window -->
+    <mat-drawer #drawer class="example-sidenav" mode="side">
+      <p>Test sidenav</p>
+    </mat-drawer>
+  
+    <!-- Toolbar at Top of Page -->
+    <mat-toolbar color="primary">
+  
+      <!-- Hamburger Menu Button (Toggles Sidenav) -->
+      <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+  
+      <!-- Title on Menu Bar -->
+      <span>{{title}}</span>
+  
+      <!-- Spacer across Menu Bar -->
+      <span class="example-spacer"></span>
+  
+      <!-- Heart Icon (Not Currently Functional) -->
+      <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+        <mat-icon>favorite</mat-icon>
+      </button>
+  
+      <!-- Share Icon (Not Currently Functional) -->
+      <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+        <mat-icon>share</mat-icon>
+      </button>
+    </mat-toolbar>
+    
+    <!-- Search Input Box in Main Body -->
+    <form (change)="save()">
+      <mat-form-field>
+        <mat-label>Search</mat-label>
+        <input matInput placeholder="Ex. Dress Shoes" [(ngModel)]="search" name="Input">
+      </mat-form-field>
+    </form>
+  
+    <!-- Main Body Table Output -->
+    <table *ngIf="items" class="table table-striped">
+      <thead>
+          <tr>
+            <th>name</th>
+            <th>averageRating</th>
+            <th>price</th>
+            <th>sellerName</th>
+          </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of items.data.search.searchResult.itemStacks[0].items">
+          <td>{{ item?.name || "Undefined"}}</td>
+          <td>{{ item?.averageRating || -1}}</td>
+          <td>{{ item?.priceInfo?.currentPrice?.price || -1}}</td>
+          <td>{{ item?.sellerName || "Undefined"}}</td>
+        </tr>
+      </tbody>
+    </table>
+  
+  </mat-drawer-container>

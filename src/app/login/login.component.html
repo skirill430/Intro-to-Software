@@ -1,0 +1,43 @@
+<!-- Header -->
+<p>
+    <mat-toolbar color = "primary">
+      <span>Quick Shop Login Page</span>
+    </mat-toolbar>
+</p>
+
+<section>
+    Enter your username and password to login
+</section>
+ 
+<!-- Username input -->
+<div>
+<mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="Ex. John Smith">
+</mat-form-field>
+</div>
+
+<!-- Password input -->
+<!-- TODO: hide text as user types it -->
+<div>
+<mat-form-field>
+    <mat-label>Password</mat-label>
+    <input matInput placeholder="">
+</mat-form-field>
+</div>
+
+<!-- Submit Button -->
+<section>
+    <div class="example-button-row">
+        <!-- TODO: should take user to home page -->
+        <!-- TODO: save user data to database -->
+      <button (click)="goToPage('Home')" mat-raised-button color="primary">Submit!</button>
+    </div>
+</section>
+
+<!-- Testing link to home page (Probably delete later)-->
+<section>
+    <div class="example-button-row">
+        <a mat-button href="http://localhost:4200/home" target="_blank">Link</a>
+    </div>
+</section>
