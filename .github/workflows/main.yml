@@ -85,12 +85,17 @@ jobs:
       with:
         source: 'go.tar'
         target: '.'
-    
-    - name: Extract Files
-      uses: appleboy/ssh-action@v0.1.8
-      env:
-        USERNAME: ${{ secrets.SSH_USER }}
-        HOST: ${{ secrets.HOST }}
-        KEY: ${{ secrets.PRIVATE_KEY }}
+        
+  cypress:
+    runs-on: ubuntu-latest
+    needs: [angular, go]
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3.3.0
+
+    - name: Cypress tests
+      uses: cypress-io/github-action@v5
       with:
-        script: tar -xf go.tar
+        start: npm run start
+        # for now only a single URL can be waited on
+        wait-on: 'http://localhost:9000' 
