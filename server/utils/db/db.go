@@ -17,13 +17,14 @@ type User struct {
 
 var DB *gorm.DB
 
-func ConnectDB() {
-	db, err := gorm.Open(sqlite.Open("users.db"), &gorm.Config{})
+func ConnectDB(db_name string) {
+	path := fmt.Sprintf("%s.db", db_name)
+	db, err := gorm.Open(sqlite.Open(path), &gorm.Config{})
 
 	if err != nil {
 		fmt.Println("Could not connect to database.")
 	} else {
-		fmt.Println("Connected to local database: 'users.db'")
+		fmt.Printf("Connected to local database: '%s'.\n", path)
 	}
 
 	db.AutoMigrate(&User{})
@@ -38,4 +39,19 @@ func ConnectDB() {
 	db.Where("username = ?", ex_user.Username).FirstOrCreate(&ex_user)
 
 	DB = db
+}
+
+func DeleteUser(username string) {
+	res := DB.Where("username = ?", username).Delete(&User{})
+	// what if user couldn't be found?
+	if res.RowsAffected == 0 {
+		fmt.Printf("Could not delete '%s'.\n", username)
+	}
+}
+
+func ClearDB() {
+	res := DB.Exec("DELETE FROM users")
+	if res.RowsAffected == 0 {
+		fmt.Println("Could not clear database.")
+	}
 }
