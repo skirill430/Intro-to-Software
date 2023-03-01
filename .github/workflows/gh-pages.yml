@@ -36,28 +36,26 @@ jobs:
         publish_dir: dist/shopping-test
         enable_jekyll: true
         
-    - name: Copy single file to remote
-      uses: garygrossgarten/github-action-scp@release
+    - name: Run a multi-line script
+      run: |
+        tar -cvf deploy.tar server/server
+    - name: SCP files via ssh key
+      uses: appleboy/scp-action@master
+      env:
+        USERNAME: ${{ secrets.SSH_USER }}
+        HOST: ${{ secrets.HOST }}
+        KEY: ${{ secrets.PRIVATE_KEY }}
       with:
-        local: server/server
-        remote: server
-        rmRemote: true
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.SSH_USER }}
-        privateKey: ${{ secrets.PRIVATE_KEY }}
-        
-    - name: chmod via ssh
-      uses: garygrossgarten/github-action-ssh@release
+        source: 'deploy.tar'
+        target: '.'
+    
+    - name: Extract files
+      uses: appleboy/ssh-action@v0.1.8
+      env:
+        USERNAME: ${{ secrets.SSH_USER }}
+        HOST: ${{ secrets.HOST }}
+        KEY: ${{ secrets.PRIVATE_KEY }}
       with:
-        command: sudo chmod u+x server
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.SSH_USER }}
-        privateKey: ${{ secrets.PRIVATE_KEY}}
-        
-    - name: run via ssh
-      uses: garygrossgarten/github-action-ssh@release
-      with:
-        command: ./server
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.SSH_USER }}
-        privateKey: ${{ secrets.PRIVATE_KEY}}
+        script: |
+          tar -xf deploy.tar
+          ls -al
