@@ -1,9 +1,9 @@
 describe('template spec', () => {
   it('passes', () => {
-    cy.visit('http://localhost:4200/home')
+    cy.visit('http://127.0.0.1:4200/home')
     cy.intercept({
       method: 'POST',
-      url: 'http://localhost:9000/walmart',
+      url: 'http://127.0.0.1:9000/walmart',
     }).as('apiCheck')
     cy.get('input').type('test')
     cy.get('#share').click()
