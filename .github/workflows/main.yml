@@ -31,25 +31,12 @@ jobs:
     - name: Tar Files
       run: |
         tar -cvf angular.tar -C dist/shopping-test .
-    - name: SCP Files via SSH
-      uses: appleboy/scp-action@master
-      env:
-        USERNAME: ${{ secrets.SSH_USER }}
-        HOST: ${{ secrets.HOST }}
-        KEY: ${{ secrets.PRIVATE_KEY }}
+          
+    - name: Upload Angular Artifacts
+      uses: actions/upload-artifact@v3.1.2
       with:
-        source: 'angular.tar'
-        target: '.'
-    
-    - name: Extract Files
-      uses: appleboy/ssh-action@v0.1.8
-      env:
-        USERNAME: ${{ secrets.SSH_USER }}
-        HOST: ${{ secrets.HOST }}
-        KEY: ${{ secrets.PRIVATE_KEY }}
-      with:
-        script: |
-          tar -xf angular.tar
+        name: angular
+        path: angular.tar
 
   go:
     runs-on: ubuntu-latest
@@ -76,15 +63,12 @@ jobs:
     - name: Tar Files
       run: |
         tar -cvf go.tar server/server
-    - name: SCP Files via SSH
-      uses: appleboy/scp-action@master
-      env:
-        USERNAME: ${{ secrets.SSH_USER }}
-        HOST: ${{ secrets.HOST }}
-        KEY: ${{ secrets.PRIVATE_KEY }}
+
+    - name: Upload Go Artifacts
+      uses: actions/upload-artifact@v3.1.2
       with:
-        source: 'go.tar'
-        target: '.'
+        name: go
+        path: go.tar
         
   cypress:
     runs-on: ubuntu-latest
@@ -97,4 +81,49 @@ jobs:
       with:
         start: npm start
         # for now only a single URL can be waited on
-        wait-on: 'http://localhost:9000/walmart' 
+        wait-on: 'http://localhost:9000/walmart'
+        
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [angular, go, cypress]
+    steps:
+
+    - name: Download Angular Artifact
+      uses: actions/download-artifact@v3.0.2
+      with:
+        name: angular
+        
+    - name: Download Go Artifact
+      uses: actions/download-artifact@v3.0.2
+      with:
+        name: go
+        
+    - name: SCP Files via SSH
+      uses: appleboy/scp-action@master
+      env:
+        USERNAME: ${{ secrets.SSH_USER }}
+        HOST: ${{ secrets.HOST }}
+        KEY: ${{ secrets.PRIVATE_KEY }}
+      with:
+        source: 'angular.tar,go.tar'
+        target: '.'
+        
+    - name: Extract Angular Files
+      uses: appleboy/ssh-action@v0.1.8
+      env:
+        USERNAME: ${{ secrets.SSH_USER }}
+        HOST: ${{ secrets.HOST }}
+        KEY: ${{ secrets.PRIVATE_KEY }}
+      with:
+        script: |
+          tar -xf angular.tar
+
+    - name: Extract Go Files
+      uses: appleboy/ssh-action@v0.1.8
+      env:
+        USERNAME: ${{ secrets.SSH_USER }}
+        HOST: ${{ secrets.HOST }}
+        KEY: ${{ secrets.PRIVATE_KEY }}
+      with:
+        script: |
+          tar -xf go.tar
