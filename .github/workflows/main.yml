@@ -105,7 +105,7 @@ jobs:
         KEY: ${{ secrets.PRIVATE_KEY }}
       with:
         source: 'angular.tar,go.tar'
-        target: '.'
+        target: '/var/www/html'
         
     - name: Extract Angular Files
       uses: appleboy/ssh-action@v0.1.8
@@ -114,7 +114,8 @@ jobs:
         HOST: ${{ secrets.HOST }}
         KEY: ${{ secrets.PRIVATE_KEY }}
       with:
-        script: |
+        script: | 
+          cd /var/www/html
           tar -xf angular.tar
 
     - name: Extract Go Files
@@ -125,4 +126,5 @@ jobs:
         KEY: ${{ secrets.PRIVATE_KEY }}
       with:
         script: |
+          cd /var/www/html
           tar -xf go.tar
