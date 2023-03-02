@@ -471,9 +471,9 @@ import { Observable } from 'rxjs';
 })
 export class HttpService {
 
-    private walmartURL = 'http://localhost:9000/walmart'
-    private signupUserURL = 'http://localhost:9000/api/user/signup'
-    private loginUserURL = 'http://localhost:9000/api/user/signin'
+    private walmartURL = 'http://127.0.0.1:9000/walmart'
+    private signupUserURL = 'http://127.0.0.1:9000/api/user/signup'
+    private loginUserURL = 'http://127.0.0.1:9000/api/user/signin'
   
     constructor(private http: HttpClient) { }
   
