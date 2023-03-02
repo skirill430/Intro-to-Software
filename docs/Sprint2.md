@@ -1,5 +1,9 @@
 # Sprint 2
 
+Frontend video: https://youtu.be/5rg8xnS_-LQ
+
+Backend video: https://youtu.be/i9pVfyWH468
+
 ## Work Completed
 
 ### General / Quality of Life
