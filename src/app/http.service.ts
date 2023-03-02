@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../environments/environment'
 
   export interface Meta {
       __typename: string;
@@ -471,9 +472,9 @@ import { Observable } from 'rxjs';
 })
 export class HttpService {
 
-    private walmartURL = 'http://localhost:9000/walmart'
-    private signupUserURL = 'http://localhost:9000/api/user/signup'
-    private loginUserURL = 'http://localhost:9000/api/user/signin'
+    private walmartURL = 'http://' + environment.serverURL + ':9000/walmart'
+    private signupUserURL = 'http://' + environment.serverURL + ':9000/api/user/signup'
+    private loginUserURL = 'http://' + environment.serverURL + ':9000/api/user/signin'
   
     constructor(private http: HttpClient) { }
   
