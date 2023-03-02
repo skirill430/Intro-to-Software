@@ -16,10 +16,10 @@ func main() {
 	db.ConnectDB("users")
 
 	corsHandler := cors.New(cors.Options{
-    AllowedOrigins: []string{"http://localhost:4200","http://localhost"},
+		AllowedOrigins: []string{"http://localhost:4200", "http://localhost"},
 	})
 
 	fmt.Println("Server running on Port 9000...")
 	// "127.0.0.1" before port disables firewall popup when running dev environment
-	log.Fatal(http.ListenAndServe("127.0.0.1:9000", corsHandler.Handler(r)))
+	log.Fatal(http.ListenAndServe(":9000", corsHandler.Handler(r)))
 }
