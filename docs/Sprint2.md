@@ -2,7 +2,7 @@
 
 ## Work Completed
 
-## General / Quality of Life
+### General / Quality of Life
  - Implemented a continuous integration system using GitHub actions to run unit tests, cypress tests, and build production files that are then deployed to a server.
 
 
