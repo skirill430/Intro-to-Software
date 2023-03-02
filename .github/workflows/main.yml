@@ -117,7 +117,15 @@ jobs:
         source: 'angular.tar,go.tar'
         target: '/var/www/html'
         overwrite: true
-        
+    - name: Disable Go Server
+      uses: appleboy/ssh-action@v0.1.8
+      env:
+        USERNAME: ${{ secrets.SSH_USER }}
+        HOST: ${{ secrets.HOST }}
+        KEY: ${{ secrets.PRIVATE_KEY }}
+      with:
+        script: | 
+          sudo systemctl stop go-backend.service
     - name: Extract Angular Files
       uses: appleboy/ssh-action@v0.1.8
       env:
@@ -139,3 +147,12 @@ jobs:
         script: |
           cd /var/www/html
           tar -xf go.tar
+    - name: Enable Go Server
+      uses: appleboy/ssh-action@v0.1.8
+      env:
+        USERNAME: ${{ secrets.SSH_USER }}
+        HOST: ${{ secrets.HOST }}
+        KEY: ${{ secrets.PRIVATE_KEY }}
+      with:
+        script: | 
+          sudo systemctl start go-backend.service
