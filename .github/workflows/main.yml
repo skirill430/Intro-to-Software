@@ -96,7 +96,17 @@ jobs:
     - name: Download Go Artifact
       uses: actions/download-artifact@v3.0.2
       with:
-        name: go   
+        name: go
+    - name: Remove Old Files
+      uses: appleboy/ssh-action@v0.1.8
+      env:
+        USERNAME: ${{ secrets.SSH_USER }}
+        HOST: ${{ secrets.HOST }}
+        KEY: ${{ secrets.PRIVATE_KEY }}
+      with:
+        script: | 
+          cd /var/www/html
+          rm -r * || true
     - name: SCP Files via SSH
       uses: appleboy/scp-action@master
       env:
@@ -117,7 +127,7 @@ jobs:
       with:
         script: | 
           cd /var/www/html
-          tar -xf --overwrite angular.tar
+          tar -xf angular.tar
 
     - name: Extract Go Files
       uses: appleboy/ssh-action@v0.1.8
@@ -128,4 +138,4 @@ jobs:
       with:
         script: |
           cd /var/www/html
-          tar -xf --overwrite go.tar
+          tar -xf go.tar
