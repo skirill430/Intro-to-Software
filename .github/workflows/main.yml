@@ -106,6 +106,7 @@ jobs:
       with:
         source: 'angular.tar,go.tar'
         target: '/var/www/html'
+        overwrite: true
         
     - name: Extract Angular Files
       uses: appleboy/ssh-action@v0.1.8
@@ -116,7 +117,7 @@ jobs:
       with:
         script: | 
           cd /var/www/html
-          tar -xf angular.tar
+          tar -xf --overwrite angular.tar
 
     - name: Extract Go Files
       uses: appleboy/ssh-action@v0.1.8
@@ -127,4 +128,4 @@ jobs:
       with:
         script: |
           cd /var/www/html
-          tar -xf go.tar
+          tar -xf --overwrite go.tar
