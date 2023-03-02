@@ -16,7 +16,7 @@ func main() {
 	db.ConnectDB("users")
 
 	corsHandler := cors.New(cors.Options{
-		AllowedOrigins: []string{"http://localhost:4200"},
+    AllowedOrigins: []string{"http://localhost:4200","http://localhost"},
 	})
 
 	fmt.Println("Server running on Port 9000...")

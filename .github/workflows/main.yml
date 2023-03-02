@@ -97,7 +97,16 @@ jobs:
       uses: actions/download-artifact@v3.0.2
       with:
         name: go
-        
+    - name: Remove Old Files
+      uses: appleboy/ssh-action@v0.1.8
+      env:
+        USERNAME: ${{ secrets.SSH_USER }}
+        HOST: ${{ secrets.HOST }}
+        KEY: ${{ secrets.PRIVATE_KEY }}
+      with:
+        script: | 
+          cd /var/www/html
+          rm -r * || true
     - name: SCP Files via SSH
       uses: appleboy/scp-action@master
       env:
@@ -106,8 +115,17 @@ jobs:
         KEY: ${{ secrets.PRIVATE_KEY }}
       with:
         source: 'angular.tar,go.tar'
-        target: '.'
-        
+        target: '/var/www/html'
+        overwrite: true
+    - name: Disable Go Server
+      uses: appleboy/ssh-action@v0.1.8
+      env:
+        USERNAME: ${{ secrets.SSH_USER }}
+        HOST: ${{ secrets.HOST }}
+        KEY: ${{ secrets.PRIVATE_KEY }}
+      with:
+        script: | 
+          sudo systemctl stop go-backend.service
     - name: Extract Angular Files
       uses: appleboy/ssh-action@v0.1.8
       env:
@@ -115,7 +133,8 @@ jobs:
         HOST: ${{ secrets.HOST }}
         KEY: ${{ secrets.PRIVATE_KEY }}
       with:
-        script: |
+        script: | 
+          cd /var/www/html
           tar -xf angular.tar
 
     - name: Extract Go Files
@@ -126,4 +145,14 @@ jobs:
         KEY: ${{ secrets.PRIVATE_KEY }}
       with:
         script: |
+          cd /var/www/html
           tar -xf go.tar
+    - name: Enable Go Server
+      uses: appleboy/ssh-action@v0.1.8
+      env:
+        USERNAME: ${{ secrets.SSH_USER }}
+        HOST: ${{ secrets.HOST }}
+        KEY: ${{ secrets.PRIVATE_KEY }}
+      with:
+        script: | 
+          sudo systemctl start go-backend.service
