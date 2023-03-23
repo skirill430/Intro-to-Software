@@ -7,7 +7,7 @@ import { LoginComponent } from "./login/login.component";
 // Array of routes (if the path value is typed into URL, take use to specified component)
 const routes: Routes = [
     // Default page is the login
-    {path: '', component: LoginComponent},
+    {path: '', component: HomeComponent},
     {path: 'home', component: HomeComponent},
     {path: 'login', component: LoginComponent},
 
