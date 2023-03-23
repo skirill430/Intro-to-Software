@@ -26,25 +26,18 @@
 </mat-form-field>
 </div>
 
-<!-- Submit Button -->
+<!-- Login Button -->
 <section style="text-align:center">
-    <div class="example-button-row">
-        <!-- Login button -->
-        <div>
-            <!-- login header -->
-            <h1>
-                For returning users:
-            </h1>
-            <button (click)="sendLogin()" routerLink="home" mat-raised-button color="primary">Log In</button>
-        </div>
+    <!-- Header -->
+    <h1>For returning users:</h1>
+    <!-- Button  -->
+    <button (click)="sendLogin()" (click)="goToPage('home')" mat-raised-button color="primary">Log In</button>
+</section>
 
-        <!-- Signup button -->
-        <div>
-            <!-- sign up header -->
-            <h1>
-                For new users:
-            </h1>
-            <button (click)="sendSignup()" routerLink="home" mat-raised-button color="primary">Sign Up</button>
-        </div>
-    </div>
+<!-- Signup button -->
+<section style="text-align:center"> 
+    <!-- Header -->
+    <h1>For new users:</h1>
+    <!-- Button -->
+    <button (click)="sendSignup()" (click)="goToPage('home')" mat-raised-button color="primary">Sign Up</button>
 </section>
