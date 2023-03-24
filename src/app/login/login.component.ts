@@ -36,8 +36,8 @@ export class LoginComponent {
     })
   }
 
-  // // function to take user to home page (not used)
-  // goToPage(pageName:string):void {
-  //   this.router.navigate([`${pageName}`]);
-  // }
+  // function to take user to home page
+  goToPage(pageName:string):void {
+    this.router.navigate([`${pageName}`]);
+  }
 }

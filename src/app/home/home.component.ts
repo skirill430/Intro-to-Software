@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AppComponent } from '../app.component'
 import { HttpService } from '../http.service';
 import * as http from '../http.service';
@@ -14,7 +15,7 @@ export class HomeComponent {
   search : string;
   showFiller = false;
 
-  constructor(private httpService: HttpService) {}
+  constructor(private router: Router, private httpService: HttpService) {}
 
   save() {
     console.log(this.search);
@@ -22,5 +23,10 @@ export class HomeComponent {
       console.log(response);
       this.items = response;
     })
+  }
+
+  // routing function to take user to pageName
+  goToPage(pageName:string):void {
+    this.router.navigate([`${pageName}`]);
   }
 }
