@@ -11,6 +11,7 @@
     "test": "npm run test:headless & npm run testserver",
     "testserver": "cd server/testing && go test -v",
     "buildserver:prod": "cd server && env GOOS=linux GOARCH=amd64 go build",
+    "wipe-databases": "cd server && rm -r *.db && cd testing && rm -r *.db",
     "watch": "ng build --watch --configuration=development",
     "build:prod": "ng build --configuration=production",
     "test:headless": "ng test --watch=false --browsers=ChromeHeadless"
