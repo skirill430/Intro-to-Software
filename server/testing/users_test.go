@@ -16,11 +16,11 @@ var Router = router.Router()
 
 // needed to connect to DB before each test is run
 func TestMain(m *testing.M) {
-	db.ConnectDB("test")
+	db.ConnectDB("users_test")
 	code := m.Run()
 
 	// clear database after so future tests execute the same
-	db.ClearDB()
+	db.ClearUsersDB()
 	os.Exit(code)
 }
 

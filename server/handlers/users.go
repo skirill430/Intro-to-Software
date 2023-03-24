@@ -27,7 +27,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 
 	user.Password = utils.HashAndSalt([]byte(user.Password))
 	// add user only if username doesn't exist in database already
-	res := db.DB.Where("username = ?", user.Username).FirstOrCreate(&user)
+	res := db.UsersDB.Where("username = ?", user.Username).FirstOrCreate(&user)
 
 	if res.RowsAffected == 0 {
 		w.WriteHeader(http.StatusConflict)
@@ -56,7 +56,7 @@ func AuthenticateUser(w http.ResponseWriter, r *http.Request) {
 
 	var dbUser *db.User
 	// cannot find username in database
-	err := db.DB.First(&dbUser, "username = ?", inputCredentials.Username).Error
+	err := db.UsersDB.First(&dbUser, "username = ?", inputCredentials.Username).Error
 
 	if errors.Is(err, gorm.ErrRecordNotFound) {
 		w.WriteHeader(http.StatusNotFound)

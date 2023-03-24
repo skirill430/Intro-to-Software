@@ -14,6 +14,7 @@ import (
 func main() {
 	r := router.Router()
 	db.ConnectDB("users")
+	db.ConnectDB("products")
 
 	corsHandler := cors.New(cors.Options{
 		AllowedOrigins: []string{"http://localhost:4200", "http://localhost", "http://132.145.212.18", "http://132.145.212.18/home"},
