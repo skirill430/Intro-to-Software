@@ -11,6 +11,8 @@ func Router() *mux.Router {
 	r.HandleFunc("/target", handlers.Target)
 	r.HandleFunc("/api/user/signup", handlers.CreateUser).Methods("POST")
 	r.HandleFunc("/api/user/signin", handlers.AuthenticateUser).Methods("POST")
+	r.HandleFunc("/api/products/save", handlers.SaveProduct).Methods("POST")
+	r.HandleFunc("/api/products/remove", handlers.RemoveProduct).Methods("DELETE")
 
 	return r
 }
