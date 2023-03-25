@@ -16,11 +16,13 @@ type User struct {
 }
 
 type ProductInfo struct {
-	Username string `json:"username" gorm:"primaryKey"`
-	Name     string `json:"name"`
-	Price    string `json:"price"`
-	Rating   string `json:"rating"`
-	ImageURL string `json:"imageURL"`
+	ID          string `json:"id" gorm:"primaryKey"`
+	Username    string `json:"username"`
+	SellerName  string `json:"seller_name"`
+	ProductName string `json:"product_name"`
+	Price       string `json:"price"`
+	Rating      string `json:"rating"`
+	ImageURL    string `json:"image_url"`
 }
 
 var UsersDB *gorm.DB
@@ -53,11 +55,13 @@ func ConnectDB(db_name string) {
 
 		// create example product only upon first time creating products.db
 		ex_product := &ProductInfo{
-			Username: "example_user",
-			Name:     "2022 Apple MacBook Air Laptop with M2 chip",
-			Price:    "$1,145.94",
-			Rating:   "4.2",
-			ImageURL: "https://i5.walmartimages.com/asr/323a5b34-669e-4c8d-9a1f-c2ad73e3b15e.23b625e851179b54b0af5e7045347e79.jpeg?odnHeight=180&odnWidth=180&odnBg=FFFFFF",
+			ID:          "1113705",
+			Username:    "example_user",
+			SellerName:  "Target",
+			ProductName: "2022 Apple MacBook Air Laptop with M2 chip",
+			Price:       "$1,145.94",
+			Rating:      "4.2",
+			ImageURL:    "https://i5.walmartimages.com/asr/323a5b34-669e-4c8d-9a1f-c2ad73e3b15e.23b625e851179b54b0af5e7045347e79.jpeg?odnHeight=180&odnWidth=180&odnBg=FFFFFF",
 		}
 
 		db.Where("username = ?", ex_product.Username).FirstOrCreate(&ex_product)
