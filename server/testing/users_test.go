@@ -8,7 +8,7 @@ import (
 	"testing"
 
 	"github.com/skirill430/Quick-Shop/server/router"
-	"github.com/skirill430/Quick-Shop/server/utils/db"
+	"github.com/skirill430/Quick-Shop/server/utils"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -16,11 +16,11 @@ var Router = router.Router()
 
 // needed to connect to DB before each test is run
 func TestMain(m *testing.M) {
-	db.ConnectDB("users_test")
+	utils.ConnectDB("users_test")
 	code := m.Run()
 
 	// clear database after so future tests execute the same
-	db.ClearUsersDB()
+	utils.ClearUsersDB()
 	os.Exit(code)
 }
 
@@ -37,7 +37,7 @@ func TestSignUp_OK(t *testing.T) {
 	a.Equal(http.StatusOK, response.Code, "HTTP request status code error")
 
 	// delete newly created user in between tests, database is only cleared after all tests are executed
-	db.DeleteUser("test-username")
+	utils.DeleteUser("test-username")
 }
 
 func TestSignUp_TakenUsername(t *testing.T) {
@@ -59,7 +59,7 @@ func TestSignUp_TakenUsername(t *testing.T) {
 	a.Equal(http.MethodPost, req.Method, "HTTP request method error")
 	a.Equal(http.StatusConflict, response.Code, "HTTP request status code error")
 
-	db.DeleteUser("test-username")
+	utils.DeleteUser("test-username")
 }
 
 func TestSignIn_OK(t *testing.T) {
@@ -78,7 +78,7 @@ func TestSignIn_OK(t *testing.T) {
 	a.Equal(http.MethodPost, req.Method, "HTTP request method error")
 	a.Equal(http.StatusOK, response.Code, "HTTP request status code error")
 
-	db.DeleteUser("test-username")
+	utils.DeleteUser("test-username")
 }
 
 func TestSignIn_UsernameNotFound(t *testing.T) {
@@ -111,5 +111,5 @@ func TestSignIn_PasswordIncorrect(t *testing.T) {
 	a.Equal(http.MethodPost, req.Method, "HTTP request method error")
 	a.Equal(http.StatusUnauthorized, response.Code, "HTTP request status code error")
 
-	db.DeleteUser("test-username")
+	utils.DeleteUser("test-username")
 }

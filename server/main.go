@@ -6,15 +6,15 @@ import (
 	"net/http"
 
 	"github.com/skirill430/Quick-Shop/server/router"
-	"github.com/skirill430/Quick-Shop/server/utils/db"
+	"github.com/skirill430/Quick-Shop/server/utils"
 
 	"github.com/rs/cors"
 )
 
 func main() {
 	r := router.Router()
-	db.ConnectDB("users")
-	db.ConnectDB("products")
+	utils.ConnectDB("users")
+	utils.ConnectDB("products")
 
 	corsHandler := cors.New(cors.Options{
 		AllowedOrigins: []string{"http://localhost:4200", "http://localhost", "http://132.145.212.18", "http://132.145.212.18/home"},

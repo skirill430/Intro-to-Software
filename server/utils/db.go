@@ -1,29 +1,12 @@
-package db
+package utils
 
 import (
 	"fmt"
-
-	"github.com/skirill430/Quick-Shop/server/utils"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 )
-
-type User struct {
-	Username string `json:"username" gorm:"primaryKey"`
-	Password string `json:"password"`
-}
-
-type ProductInfo struct {
-	ID          string `json:"id" gorm:"primaryKey"`
-	Username    string `json:"username"`
-	SellerName  string `json:"seller_name"`
-	ProductName string `json:"product_name"`
-	Price       string `json:"price"`
-	Rating      string `json:"rating"`
-	ImageURL    string `json:"image_url"`
-}
 
 var UsersDB *gorm.DB
 var ProductsDB *gorm.DB
@@ -44,17 +27,17 @@ func ConnectDB(db_name string) {
 		// create example user only upon first time creating users.db
 		ex_user := &User{
 			Username: "example_user",
-			Password: utils.HashAndSalt([]byte("123456")),
+			Password: HashAndSalt([]byte("123456")),
 		}
 		db.Where("username = ?", ex_user.Username).FirstOrCreate(&ex_user)
 
 		UsersDB = db
 
 	} else if db_name == "products" {
-		db.AutoMigrate(&ProductInfo{})
+		db.AutoMigrate(&UserProduct{})
 
 		// create example product only upon first time creating products.db
-		ex_product := &ProductInfo{
+		ex_product := &UserProduct{
 			ID:          "1113705",
 			Username:    "example_user",
 			SellerName:  "Target",

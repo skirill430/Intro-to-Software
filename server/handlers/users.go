@@ -6,7 +6,6 @@ import (
 	"net/http"
 
 	"github.com/skirill430/Quick-Shop/server/utils"
-	"github.com/skirill430/Quick-Shop/server/utils/db"
 
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
@@ -15,7 +14,7 @@ import (
 func CreateUser(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
-	var user db.User
+	var user utils.User
 	json.NewDecoder(r.Body).Decode(&user)
 
 	// check credentials are valid
@@ -27,7 +26,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 
 	user.Password = utils.HashAndSalt([]byte(user.Password))
 	// add user only if username doesn't exist in database already
-	res := db.UsersDB.Where("username = ?", user.Username).FirstOrCreate(&user)
+	res := utils.UsersDB.Where("username = ?", user.Username).FirstOrCreate(&user)
 
 	if res.RowsAffected == 0 {
 		w.WriteHeader(http.StatusConflict)
@@ -54,9 +53,9 @@ func AuthenticateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var dbUser *db.User
+	var dbUser *utils.User
 	// cannot find username in database
-	err := db.UsersDB.First(&dbUser, "username = ?", inputCredentials.Username).Error
+	err := utils.UsersDB.First(&dbUser, "username = ?", inputCredentials.Username).Error
 
 	if errors.Is(err, gorm.ErrRecordNotFound) {
 		w.WriteHeader(http.StatusNotFound)
