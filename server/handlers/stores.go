@@ -169,8 +169,6 @@ func BothStores(w http.ResponseWriter, r *http.Request) {
 		fmt.Printf("i = %d, i3 = %d\n", i, i3)
 		NewJson = NewJson + "\"name\":"
 		NewJson = NewJson + itemString[7:i3-1] //contains the name
-		fmt.Printf("HERE!")
-		fmt.Printf(itemString[7 : i3-1])
 		if strings.Contains(itemString[8:i3-1], "\"") {
 			NewJson = NewJson + ","
 		} else {
