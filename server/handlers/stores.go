@@ -169,7 +169,6 @@ func BothStores(w http.ResponseWriter, r *http.Request) {
 		fmt.Printf("i = %d, i3 = %d\n", i, i3)
 		NewJson = NewJson + "\"name\":"
 		NewJson = NewJson + itemString[7:i3-1] //contains the name
-		fmt.Printf(itemString[7 : i3-1])
 		NewJson = NewJson + "\","
 
 		//fmt.Printf("made it this far5")
