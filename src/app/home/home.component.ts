@@ -11,7 +11,7 @@ import * as http from '../http.service';
 })
 export class HomeComponent {
   title = 'Home Page';
-  items : http.RootObject;
+  items : http.ItemList;
   search : string;
   showFiller = false;
 
@@ -19,7 +19,7 @@ export class HomeComponent {
 
   save() {
     console.log(this.search);
-    this.httpService.getWalmartItems(this.search).subscribe(response => {
+    this.httpService.getAllItems(this.search).subscribe(response => {
       console.log(response);
       this.items = response;
     })
