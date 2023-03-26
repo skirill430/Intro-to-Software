@@ -18,6 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule, routingComponents } from '../app-routing.module';
 import { HomeComponent } from './home.component';
+import {MatTableModule} from '@angular/material/table';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -26,7 +27,7 @@ describe('HomeComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, MatSidenavModule, MatSlideToggleModule, MatToolbarModule, MatIconModule, MatButtonModule, FormsModule,
-      MatFormFieldModule, MatInputModule, BrowserAnimationsModule, ReactiveFormsModule, AppRoutingModule],
+      MatFormFieldModule, MatInputModule, BrowserAnimationsModule, ReactiveFormsModule, AppRoutingModule, MatTableModule],
       providers: [HttpService],
       declarations: [ HomeComponent]
     })

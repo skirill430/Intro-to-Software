@@ -13,6 +13,7 @@ export class HomeComponent {
   title = 'Home Page';
   items : http.ItemList;
   search : string;
+  displayedColumns : any[] = ['name','imgUrl','price','rating','store_id'];
   showFiller = false;
 
   constructor(private router: Router, private httpService: HttpService) {}

@@ -16,13 +16,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule, routingComponents } from './app-routing.module';
+import {MatTableModule} from '@angular/material/table';
 
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, MatSidenavModule, MatSlideToggleModule, MatToolbarModule, MatIconModule, MatButtonModule, FormsModule,
-      MatFormFieldModule, MatInputModule, BrowserAnimationsModule, AppRoutingModule],
+      MatFormFieldModule, MatInputModule, BrowserAnimationsModule, AppRoutingModule, MatTableModule],
       providers: [HttpService],
       declarations: [
         AppComponent
