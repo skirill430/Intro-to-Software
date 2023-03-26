@@ -89,7 +89,7 @@ func Target(w http.ResponseWriter, r *http.Request) {
 	w.Write(body)
 }
 
-func bothStores(w http.ResponseWriter, r *http.Request) {
+func BothStores(w http.ResponseWriter, r *http.Request) {
 	var search []byte
 	var err error
 	var append string
@@ -124,109 +124,154 @@ func bothStores(w http.ResponseWriter, r *http.Request) {
 	defer res.Body.Close()
 	body, _ := io.ReadAll(res.Body)
 
+	//fmt.Printf("made it this far")
+
 	NewJson := `[`
 	i := 0
 	itemString = string(body)
+	//fmt.Printf(itemString)
 	i2 := len(itemString) - 1
 	i3 := 0
 	for i != -1 {
 		i = strings.Index(itemString, "parent")
+		if i == -1 {
+			break
+		}
+		i2 = len(itemString) - 1
 		itemString = itemString[i:i2]
+		//fmt.Printf("made it this far3")
+
 		i = strings.Index(itemString, "primary_image_url")
+		if i == -1 {
+			break
+		}
+		//fmt.Printf("made it this far4")
+		i2 = len(itemString) - 1
+		fmt.Printf("i = %d, i3 = %d\n", i, i2)
+		itemString = itemString[i:i2]
+		//fmt.Printf("made it this far5")
 		i3 = strings.Index(itemString, "}")
+		//fmt.Printf("made it this far6")
+		fmt.Printf("i = %d, i3 = %d\n", i, i3)
 		NewJson = NewJson + "{\"imgUrl\":"
-		NewJson = NewJson + itemString[i+19:i3-1] //contains the url
-		NewJson = NewJson + ","
+		NewJson = NewJson + itemString[19:i3-1] //contains the url
+		NewJson = NewJson + "\","
+
+		//fmt.Printf("made it this far4")
 
 		i = strings.Index(itemString, "title")
+		if i == -1 {
+			break
+		}
+		i2 = len(itemString) - 1
 		itemString = itemString[i:i2]
 		i3 = strings.Index(itemString, "}")
+		fmt.Printf("i = %d, i3 = %d\n", i, i3)
 		NewJson = NewJson + "\"name\":"
-		NewJson = NewJson + itemString[i+7:i3-1] //contains the url
-		NewJson = NewJson + ","
+		NewJson = NewJson + itemString[7:i3-1] //contains the name
+		NewJson = NewJson + "\","
+
+		//fmt.Printf("made it this far5")
 
 		i = strings.Index(itemString, "_price")
+		if i == -1 {
+			break
+		}
+		i2 = len(itemString) - 1
 		itemString = itemString[i:i2]
 		i3 = strings.Index(itemString, ",")
+		fmt.Printf("i = %d, i3 = %d\n", i, i3)
 		NewJson = NewJson + "\"price\":"
-		NewJson = NewJson + itemString[i+8:i3-1] //contains the url
-		NewJson = NewJson + ","
+		NewJson = NewJson + itemString[8:i3-1] //contains the price
+		NewJson = NewJson + "\","
+
+		//fmt.Printf("made it this far6")
 
 		i = strings.Index(itemString, "average")
+		if i == -1 {
+			break
+		}
+		i2 = len(itemString) - 1
 		itemString = itemString[i:i2]
 		i3 = strings.Index(itemString, ",")
+		fmt.Printf("i = %d, i3 = %d\n", i, i3)
 		NewJson = NewJson + "\"rating\":"
-		NewJson = NewJson + "\"" + itemString[i+9:i3-1] + "\"" //contains the url
+		NewJson = NewJson + "\"" + itemString[9:i3-1] + "\"" //contains the rating
 		NewJson = NewJson + ","
 
 		NewJson = NewJson + "\"store_id\":\"Target\"},"
 
+		//fmt.Printf("made it this far7")
+		//fmt.Printf(NewJson)
 	}
-	//json.Unmarshal([]byte(itemString), &itemsJson)
+	NewJson = NewJson[0 : len(NewJson)-2]
+	NewJson = NewJson + "}]"
+	fmt.Printf(NewJson)
 
-	//https://www.informit.com/articles/article.aspx?p=2861456&seqNum=7 got the following switch statement form here
-	search, err = io.ReadAll(r.Body)
-	if err != nil {
-		log.Fatal(err)
-	}
+	/*
+		search, err = io.ReadAll(r.Body)
+		if err != nil {
+			log.Fatal(err)
+		}
 
-	append = bytes.NewBuffer(search).String()
+		append = bytes.NewBuffer(search).String()
 
-	url = "https://walmart.p.rapidapi.com/products/v2/list?cat_id=0&sort=best_seller&page=1&query="
+		url = "https://walmart.p.rapidapi.com/products/v2/list?cat_id=0&sort=best_seller&page=1&query="
 
-	url = url + append
-	req, _ = http.NewRequest("GET", url, nil)
+		url = url + append
+		req, _ = http.NewRequest("GET", url, nil)
 
-	req.Header.Add("X-RapidAPI-Key", "813328aa2cmshbaf8f8dc041bb3ep1a7203jsnc647b6bcd1c7")
-	req.Header.Add("X-RapidAPI-Host", "walmart.p.rapidapi.com")
+		req.Header.Add("X-RapidAPI-Key", "813328aa2cmshbaf8f8dc041bb3ep1a7203jsnc647b6bcd1c7")
+		req.Header.Add("X-RapidAPI-Host", "walmart.p.rapidapi.com")
 
-	res, err = http.DefaultClient.Do(req)
+		res, err = http.DefaultClient.Do(req)
 
-	if err != nil {
-		fmt.Println("An error connecting to Walmart occurred.")
-		return
-	}
+		if err != nil {
+			fmt.Println("An error connecting to Walmart occurred.")
+			return
+		}
 
-	defer res.Body.Close()
-	body, _ = io.ReadAll(res.Body)
+		defer res.Body.Close()
+		body, _ = io.ReadAll(res.Body)
 
-	i = 0
-	itemString = string(body)
-	i2 = len(itemString) - 1
-	i3 = 0
-	for i != -1 {
-		i = strings.Index(itemString, "\"Product\"")
-		itemString = itemString[i:i2]
-		i = strings.Index(itemString, "\"name\"")
-		i3 = strings.Index(itemString, ",")
-		NewJson = NewJson + "{\"name\":"
-		NewJson = NewJson + itemString[i+7:i3-1] //contains the url
-		NewJson = NewJson + ","
+		i = 0
+		itemString = string(body)
+		i2 = len(itemString) - 1
+		i3 = 0
+		for i != -1 {
+			i = strings.Index(itemString, "\"Product\"")
+			itemString = itemString[i:i2]
+			i = strings.Index(itemString, "\"name\"")
+			i3 = strings.Index(itemString, ",")
+			NewJson = NewJson + "{\"name\":"
+			NewJson = NewJson + itemString[i+7:i3-1] //contains the name
+			NewJson = NewJson + ","
 
-		i = strings.Index(itemString, "thumbnailUrl")
-		itemString = itemString[i:i2]
-		i3 = strings.Index(itemString, "}")
-		NewJson = NewJson + "\"imgUrl\":"
-		NewJson = NewJson + itemString[i+14:i3-1] //contains the url
-		NewJson = NewJson + ","
+			i = strings.Index(itemString, "thumbnailUrl")
+			itemString = itemString[i:i2]
+			i3 = strings.Index(itemString, "}")
+			NewJson = NewJson + "\"imgUrl\":"
+			NewJson = NewJson + itemString[i+14:i3-1] //contains the url
+			NewJson = NewJson + ","
 
-		i = strings.Index(itemString, "averageRating")
-		itemString = itemString[i:i2]
-		i3 = strings.Index(itemString, ",")
-		NewJson = NewJson + "\"rating\":"
-		NewJson = NewJson + "\"" + itemString[i+15:i3-1] + "\"" //contains the url
-		NewJson = NewJson + ","
+			i = strings.Index(itemString, "averageRating")
+			itemString = itemString[i:i2]
+			i3 = strings.Index(itemString, ",")
+			NewJson = NewJson + "\"rating\":"
+			NewJson = NewJson + "\"" + itemString[i+15:i3-1] + "\"" //contains the rating
+			NewJson = NewJson + ","
 
-		i = strings.Index(itemString, "$")
-		itemString = itemString[i:i2]
-		i3 = strings.Index(itemString, ",")
-		NewJson = NewJson + "\"price\":"
-		NewJson = NewJson + "\"" + itemString[i+1:i3-1] //contains the url
-		NewJson = NewJson + ","
+			i = strings.Index(itemString, "$")
+			itemString = itemString[i:i2]
+			i3 = strings.Index(itemString, ",")
+			NewJson = NewJson + "\"price\":"
+			NewJson = NewJson + "\"" + itemString[i+1:i3-1] //contains the price
+			NewJson = NewJson + ","
 
-		NewJson = NewJson + "\"store_id\":\"Walmart\"},"
+			NewJson = NewJson + "\"store_id\":\"Walmart\"},"
 
-	}
+		}
+	*/
 	//json.Unmarshal([]byte(NewJson), &itemsJson)
 
 	w.Write([]byte(NewJson))
