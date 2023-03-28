@@ -4,26 +4,13 @@ import (
 	"bytes"
 	"net/http"
 	"net/http/httptest"
-	"os"
 	"testing"
 
-	"github.com/skirill430/Quick-Shop/server/router"
 	"github.com/skirill430/Quick-Shop/server/utils"
 	"github.com/stretchr/testify/assert"
 )
 
-var Router = router.Router()
-
-// needed to connect to DB before each test is run
-func TestMain(m *testing.M) {
-	utils.ConnectDB("users_test")
-	code := m.Run()
-
-	// clear database after so future tests execute the same
-	utils.ClearUsersDB()
-	os.Exit(code)
-}
-
+/* USER ROUTE TESTS */
 func TestSignUp_OK(t *testing.T) {
 	test_credentials := []byte(`{"username": "test-username", 
 	"password": "test-password"}`)
