@@ -5,7 +5,6 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/gorilla/mux"
 	"github.com/skirill430/Quick-Shop/server/utils"
 	"gorm.io/gorm"
 )
@@ -27,7 +26,7 @@ func SaveProduct(w http.ResponseWriter, r *http.Request) {
 	json.NewDecoder(r.Body).Decode(&product)
 
 	// fine if no image URL is provided
-	if product.Username == "" || product.ProductName == "" || product.Price == "" || product.Rating == "" {
+	if product.Username == "" || product.ProductName == "" || product.Price == "" || product.Rating == "" || product.SellerName == "" {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte("Request Body Missing Fields"))
 		return
@@ -38,13 +37,13 @@ func SaveProduct(w http.ResponseWriter, r *http.Request) {
 	err := utils.UsersDB.First(&dbUser, "username = ?", product.Username).Error
 
 	if errors.Is(err, gorm.ErrRecordNotFound) {
-		w.WriteHeader(http.StatusNotFound)
-		w.Write([]byte("This username does not exist. Before saving a product, create an account."))
+		w.WriteHeader(http.StatusUnauthorized)
+		w.Write([]byte("To gain permission to save a product, create an account with the given username."))
 		return
 	}
 
 	// save product only if it hasn't already been
-	res := utils.ProductsDB.Where("name = ? AND seller_name = ?", product.ProductName, product.SellerName).Create(&product)
+	res := utils.UserProductsDB.Where("product_name = ? AND seller_name = ? AND username = ?", product.ProductName, product.SellerName, product.Username).FirstOrCreate(&product)
 
 	if res.RowsAffected == 0 {
 		w.WriteHeader(http.StatusConflict)
@@ -71,13 +70,13 @@ func RemoveProduct(w http.ResponseWriter, r *http.Request) {
 	err := utils.UsersDB.First(&dbUser, "username = ?", product.Username).Error
 
 	if errors.Is(err, gorm.ErrRecordNotFound) {
-		w.WriteHeader(http.StatusNotFound)
-		w.Write([]byte("This username does not exist. Before saving a product, create an account."))
+		w.WriteHeader(http.StatusUnauthorized)
+		w.Write([]byte("To gain permission to delete a saved product, create an account with the given username."))
 		return
 	}
 
 	// delete product only if ID and seller name match (IDs are specific to the seller i think)
-	res := utils.ProductsDB.Where("product_name = ? AND seller_name = ?", product.ProductName, product.SellerName).Delete(&product)
+	res := utils.UserProductsDB.Where("product_name = ? AND seller_name = ?", product.ProductName, product.SellerName).Delete(&product)
 
 	if res.RowsAffected == 0 {
 		w.WriteHeader(http.StatusNotFound)
@@ -90,10 +89,10 @@ func RemoveProduct(w http.ResponseWriter, r *http.Request) {
 func GetAllProducts(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
-	vars := mux.Vars(r)
-	username := vars["username"]
+	var body utils.UserProduct
+	json.NewDecoder(r.Body).Decode(&body)
 
-	if username == "" {
+	if body.Username == "" {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte("Request Body Missing Fields"))
 		return
@@ -101,7 +100,7 @@ func GetAllProducts(w http.ResponseWriter, r *http.Request) {
 
 	// check if username has account tied to it
 	var dbUser *utils.User
-	err := utils.UsersDB.First(&dbUser, "username = ?", username).Error
+	err := utils.UsersDB.First(&dbUser, "username = ?", body.Username).Error
 
 	if errors.Is(err, gorm.ErrRecordNotFound) {
 		w.WriteHeader(http.StatusNotFound)
@@ -110,7 +109,7 @@ func GetAllProducts(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var products []utils.UserProduct
-	utils.ProductsDB.Where("username = ?", username).Find(&products)
+	utils.UserProductsDB.Where("username = ?", body.Username).Find(&products)
 
 	json.NewEncoder(w).Encode(products)
 }
