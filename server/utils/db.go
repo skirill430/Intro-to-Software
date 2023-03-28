@@ -9,7 +9,7 @@ import (
 )
 
 var UsersDB *gorm.DB
-var ProductsDB *gorm.DB
+var UserProductsDB *gorm.DB
 
 func ConnectDB(db_name string) {
 	path := fmt.Sprintf("%s.db", db_name)
@@ -33,7 +33,7 @@ func ConnectDB(db_name string) {
 
 		UsersDB = db
 
-	} else if db_name == "products" {
+	} else if db_name == "products" || db_name == "products_test" {
 		db.AutoMigrate(&UserProduct{})
 
 		// create example product only upon first time creating products.db
@@ -48,7 +48,7 @@ func ConnectDB(db_name string) {
 
 		db.Where("username = ?", ex_product.Username).FirstOrCreate(&ex_product)
 
-		ProductsDB = db
+		UserProductsDB = db
 	}
 }
 
@@ -64,5 +64,21 @@ func ClearUsersDB() {
 	res := UsersDB.Exec("DELETE FROM users")
 	if res.RowsAffected == 0 {
 		fmt.Println("Could not clear users database.")
+	}
+}
+
+func DeleteUserProduct(username string, product_name string, seller_name string) {
+	res := UserProductsDB.Where("product_name = ? AND seller_name = ? AND username = ?", product_name, seller_name, username).Delete(&UserProduct{})
+
+	if res.RowsAffected == 0 {
+		fmt.Printf("Could not delete product '%s' from the saved list of '%s' from the products database.\n", product_name, username)
+		return
+	}
+}
+
+func ClearUserProductsDB() {
+	res := UserProductsDB.Exec("DELETE FROM user_products")
+	if res.RowsAffected == 0 {
+		fmt.Println("Could not clear user_products database.")
 	}
 }
