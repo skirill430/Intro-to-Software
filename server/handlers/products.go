@@ -12,7 +12,6 @@ import (
 
 /*
 	{
-		"id": "1113706",
 		"username": "user1",
 		"seller_name": "Target",
 		"product_name": "North Face Backpack",
@@ -45,7 +44,7 @@ func SaveProduct(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// save product only if it hasn't already been
-	res := utils.ProductsDB.Where("id = ? AND seller_name = ?", product.ID, product.SellerName).Create(&product)
+	res := utils.ProductsDB.Where("name = ? AND seller_name = ?", product.ProductName, product.SellerName).Create(&product)
 
 	if res.RowsAffected == 0 {
 		w.WriteHeader(http.StatusConflict)
@@ -78,7 +77,7 @@ func RemoveProduct(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// delete product only if ID and seller name match (IDs are specific to the seller i think)
-	res := utils.ProductsDB.Where("id = ? AND seller_name = ?", product.ID, product.SellerName).Delete(&product)
+	res := utils.ProductsDB.Where("product_name = ? AND seller_name = ?", product.ProductName, product.SellerName).Delete(&product)
 
 	if res.RowsAffected == 0 {
 		w.WriteHeader(http.StatusNotFound)

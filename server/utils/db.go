@@ -38,7 +38,6 @@ func ConnectDB(db_name string) {
 
 		// create example product only upon first time creating products.db
 		ex_product := &UserProduct{
-			ID:          "1113705",
 			Username:    "example_user",
 			SellerName:  "Target",
 			ProductName: "2022 Apple MacBook Air Laptop with M2 chip",
