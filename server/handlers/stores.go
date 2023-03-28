@@ -10,14 +10,6 @@ import (
 	"net/http"
 )
 
-type ItemData struct {
-	price    string
-	imgUrl   string
-	rating   string
-	name     string
-	store_id string
-}
-
 func Walmart(w http.ResponseWriter, r *http.Request) {
 
 	var search []byte
@@ -130,7 +122,7 @@ func BothStores(w http.ResponseWriter, r *http.Request) {
 	i := 0
 	itemString = string(body)
 	//fmt.Printf(itemString)
-	i2 := len(itemString) - 1
+	var i2 int
 	i3 := 0
 	for i != -1 {
 		i = strings.Index(itemString, "parent")
@@ -210,7 +202,7 @@ func BothStores(w http.ResponseWriter, r *http.Request) {
 	}
 	NewJson = NewJson[0 : len(NewJson)-2]
 	NewJson = NewJson + "}]"
-	fmt.Printf(NewJson)
+	fmt.Print(NewJson)
 
 	/*
 		search, err = io.ReadAll(r.Body)
