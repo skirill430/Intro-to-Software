@@ -468,11 +468,11 @@ import { environment } from '../environments/environment'
 //   }
 
 export interface RootObject {
-	imgUrl: string;
-	name: string;
+	image_url: string;
+	product_name: string;
 	price: string;
 	rating: string;
-	store_id: string;
+	seller_name: string;
 }
   
 export type ItemList = Array<RootObject>;
