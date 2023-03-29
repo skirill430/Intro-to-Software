@@ -162,7 +162,7 @@ func BothStores(w http.ResponseWriter, r *http.Request) {
 		itemString = itemString[i:i2]
 		i3 = strings.Index(itemString, ",")
 		fmt.Printf("i = %d, i3 = %d\n", i, i3)
-		NewJson = NewJson + "\"product_name\":"
+		NewJson = NewJson + "\"product_name\""
 		NewJson = NewJson + itemString[7:i3-1] //contains the name
 		if strings.Contains(itemString[8:i3-1], "\"") {
 			NewJson = NewJson + ","
@@ -255,7 +255,7 @@ func BothStores(w http.ResponseWriter, r *http.Request) {
 		i3 = strings.Index(itemString, ",")
 		//fmt.Printf("made it this far6")
 		fmt.Printf("i = %d, i3 = %d\n", i, i3)
-		NewJson = NewJson + "{\"name\":"
+		NewJson = NewJson + "{\"product_name\":"
 		NewJson = NewJson + itemString[7:i3-1] //contains the name
 		NewJson = NewJson + "\","
 
@@ -269,7 +269,7 @@ func BothStores(w http.ResponseWriter, r *http.Request) {
 		itemString = itemString[i:i2]
 		i3 = strings.Index(itemString, "}")
 		fmt.Printf("i = %d, i3 = %d\n", i, i3)
-		NewJson = NewJson + "\"imgUrl\":"
+		NewJson = NewJson + "\"img_Url\":"
 		NewJson = NewJson + " \"" + itemString[15:i3-1] //contains the url
 		if strings.Contains(itemString[16:i3-1], "\"") {
 			NewJson = NewJson + ","
@@ -301,12 +301,16 @@ func BothStores(w http.ResponseWriter, r *http.Request) {
 		itemString = itemString[i:i2]
 		i3 = strings.Index(itemString, ",")
 		fmt.Printf("i = %d, i3 = %d\n", i, i3)
-		NewJson = NewJson + "\"pricing\":"
-		NewJson = NewJson + "\"" + itemString[1:i3-1] //contains the price
-		if strings.Contains(itemString[1:i3-1], "\"") {
-			NewJson = NewJson + ","
+		if strings.Contains(itemString[1:i3-1], "") {
+			NewJson = NewJson + "\"price\":" + "\"fals\","
 		} else {
-			NewJson = NewJson + "\","
+			NewJson = NewJson + "\"price\":"
+			NewJson = NewJson + "\"" + itemString[1:i3-1] //contains the price
+			if strings.Contains(itemString[1:i3-1], "\"") {
+				NewJson = NewJson + ","
+			} else {
+				NewJson = NewJson + "\","
+			}
 		}
 		NewJson = NewJson + "\"seller_name\":\"Walmart\"},"
 
