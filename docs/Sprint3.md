@@ -21,8 +21,11 @@ Backend video:
 
 ## Backend Tests
 ### Store Unit Tests:
+TestWalmart, TestTarget
 ### User Unit Tests:
+TestSignUp_OK, TestSignUp_TakenUsername, TestSignIn_OK, TestSignIn_UsernameNotFound, TestSignIn_PasswordIncorrect
 ### UserProduct Unit Tests:
+TestSaveProduct_OK, TestSaveProduct_UnknownUsername, TestSaveProduct_AlreadySavedProduct, TestRemoveProduct_OK, TestRemoveProduct_UnknownUsername, TestRemoveProduct_ProductNotSaved, TestGetAllProducts_OK, TestGetAllProducts_UnknownUsername, TestGetAllProducts_NoProductsSaved
 
 ## Updated Documentation of Backend API
 
@@ -30,7 +33,7 @@ Backend video:
 #### Walmart
 Recieves a search request from the front end body and then passes that to the Walmart API, returns JSON list to front end body
 - Path: `/walmart`
-- HTTP  METHOD: `GET`
+- HTTP Method: `GET`
 - HTTP Status Responses:
     - 200 OK (success)
 
@@ -38,13 +41,13 @@ Recieves a search request from the front end body and then passes that to the Wa
 #### Target
 Recieves a search request from the front end body and then passes that to the Target API, returns JSON list to front end body
 - Path: `/Target`
-- HTTP  METHOD: `GET`
+- HTTP Method: `GET`
 - HTTP Status Responses:
     - 200 OK (success)
 
 ### User Methods:
 #### Create User
-Creates a user object in the local database
+Creates a user object in the local account credentials database
 - Path: `/api/user/signup`
 - HTTP Method: `POST`
 - HTTP Status Responses:
@@ -67,11 +70,67 @@ Returns user info
     - 200 OK (success)
     - 400 Bad Request (request was missing username/password)
     - 401 Unauthorized (incorrect password)
-    - 404 Not Found (user does not exist in local database)
+    - 404 Not Found (user does not exist in local account credentials database)
 - Example body:
 ```json
 {
 	"username": "admin",
 	"password": "123456"
+}
+```
+### UserProduct Methods
+#### Save Product to User Account
+Creates a UserProduct object in the local saved products database
+- Path: `/api/products`
+- HTTP Method: `POST`
+- HTTP Status Responses:
+    - 200 OK (success)
+    - 400 Bad Request (request was missing username or product info)
+    - 401 Unauthorized (username does not belong to any created accounts)
+    - 409 Conflict (product has already been saved by user)
+- Example body:
+```json
+{
+	"username": "example_user",
+	"seller_name": "Target",
+	"product_name": "North Face Backpack",
+	"price": "$120.00",
+	"rating": "4.6",
+	"image_url": "https://example.com"
+}
+```
+
+#### Remove Product From User Account
+Removes a UserProduct object in the local saved products database
+- Path: `/api/products`
+- HTTP Method: `DELETE`
+- HTTP Status Responses:
+    - 200 OK (success)
+    - 400 Bad Request (request was missing username or product info)
+    - 401 Unauthorized (username does not belong to any created accounts)
+    - 404 Not Found (product has not been saved by user)
+- Example body:
+```json
+{
+	"username": "example_user",
+	"seller_name": "Target",
+	"product_name": "North Face Backpack",
+	"price": "$120.00",
+	"rating": "4.6",
+	"image_url": "https://example.com"
+}
+```
+
+#### Get User's Saved Products
+Returns list of products saved to user's account
+- Path: `/api/products`
+- HTTP Method: `GET`
+- HTTP Status Responses:
+    - 200 OK (success, will return empty list if user has zero saved products)
+    - 404 Not Found (user does not exist in local account credentials database)
+- Example body:
+```json
+{
+	"username": "example_user"
 }
 ```
