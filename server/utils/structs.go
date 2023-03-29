@@ -1,8 +1,19 @@
 package utils
 
+import (
+	"github.com/golang-jwt/jwt/v5"
+)
+
+var JwtKey = []byte("secret_key")
+
 type User struct {
 	Username string `json:"username" gorm:"primaryKey"`
 	Password string `json:"password"`
+}
+
+type Cookies struct {
+	Username string `json:"username"`
+	jwt.RegisteredClaims
 }
 
 type UserProduct struct {

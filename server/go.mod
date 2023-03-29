@@ -3,6 +3,7 @@ module github.com/skirill430/Quick-Shop/server
 go 1.19
 
 require (
+	github.com/golang-jwt/jwt/v5 v5.0.0-rc.1
 	github.com/gorilla/mux v1.8.0
 	github.com/rs/cors v1.8.3
 	github.com/stretchr/testify v1.8.2
