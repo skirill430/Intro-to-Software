@@ -1,12 +1,15 @@
 # Sprint 3
 
-Frontend video:
+Frontend video: 
 
 Backend video: https://youtu.be/gdua0DnPcWY
 
 ## Work Completed
 
 ### Frontend
+- Rearranged routing such that the search page is default when app is opened
+- Implemented Page Not Found page that the user is taken to whenever an unused url is typed in
+- Added button on search page to take user to Login/Signup page
 
 ### Backend
 - Filtered out the data from the store APIs into a standardized JSON format and combined them into a single route: /bothstores.
