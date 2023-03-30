@@ -1,6 +1,6 @@
 # Sprint 3
 
-Frontend video: 
+Frontend video: https://youtu.be/CcchVV07KJs
 
 Backend video: https://youtu.be/gdua0DnPcWY
 
