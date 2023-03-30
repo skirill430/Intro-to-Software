@@ -10,6 +10,8 @@ Backend video: https://youtu.be/gdua0DnPcWY
 - Rearranged routing such that the search page is default when app is opened
 - Implemented Page Not Found page that the user is taken to whenever an unused url is typed in
 - Added button on search page to take user to Login/Signup page
+- Implemented new json format for combined store data
+- Update table to use Angular Material
 
 ### Backend
 - Filtered out the data from the store APIs into a standardized JSON format and combined them into a single route: /bothstores.
@@ -22,7 +24,9 @@ Backend video: https://youtu.be/gdua0DnPcWY
 
 ## Frontend Tests
 ### Angular Unit Tests:
+AppComponent title, AppComponent creation, HomeComponent, search box, HomeComponent creation, HomeComponent sidebar, HomeComponent toolbar, PageNotFoundComponent creation, HttpService creation, LoginComponent creation
 ### Cypress Test:
+Testing search input and receiving a response from the server
 
 ## Backend Tests
 ### Store Unit Tests:
