@@ -1,4 +1,4 @@
-# Sprint 2
+# Sprint 3
 
 Frontend video:
 
@@ -9,6 +9,8 @@ Backend video:
 ### Frontend
 
 ### Backend
+- Filtered out the data from the store APIs into a standardized JSON format and combined them into a single route: /bothstores.
+- Implemented an HTTP cookie on user sign-in that uses JWT authentication, storing the username in a hidden token.
 - Created a secondary database to store the data of the products saved by users that connects to the initial database of user account details.
 - Created routes and handler functions for a user saving or removing a product that interact with both databases to verify given username and attach the product to that user account, returning the appropriate HTTP status response.
 - Created a route and handler function to get the products saved by a given user, returning the appropriate HTTP status response and the list of saved products in JSON format if the user was valid.
@@ -30,13 +32,19 @@ TestSaveProduct_OK, TestSaveProduct_UnknownUsername, TestSaveProduct_AlreadySave
 ## Updated Documentation of Backend API
 
 ### Store Methods:
+#### BothStores
+Recieves a search request from the front end body and then passes that to the Target and Walmart APIs, returns standardized JSON list to frontend body
+- Path: `/bothStores`
+- HTTP Method: `GET`
+- HTTP Status Responses:
+    - 200 OK (success)
+
 #### Walmart
 Recieves a search request from the front end body and then passes that to the Walmart API, returns JSON list to front end body
 - Path: `/walmart`
 - HTTP Method: `GET`
 - HTTP Status Responses:
     - 200 OK (success)
-
 
 #### Target
 Recieves a search request from the front end body and then passes that to the Target API, returns JSON list to front end body
@@ -54,7 +62,7 @@ Creates a user object in the local account credentials database
     - 200 OK (success)
     - 400 Bad Request (request was missing username/password)
     - 409 Conflict (user already exists)
-- Example body:
+- Example JSON body:
 ```json
 {
 	"username": "Daniel",
@@ -71,7 +79,7 @@ Returns user info
     - 400 Bad Request (request was missing username/password)
     - 401 Unauthorized (incorrect password)
     - 404 Not Found (user does not exist in local account credentials database)
-- Example body:
+- Example JSON body:
 ```json
 {
 	"username": "admin",
@@ -88,7 +96,7 @@ Creates a UserProduct object in the local saved products database
     - 400 Bad Request (request was missing username or product info)
     - 401 Unauthorized (username does not belong to any created accounts)
     - 409 Conflict (product has already been saved by user)
-- Example body:
+- Example JSON body:
 ```json
 {
 	"username": "example_user",
@@ -109,7 +117,7 @@ Removes a UserProduct object in the local saved products database
     - 400 Bad Request (request was missing username or product info)
     - 401 Unauthorized (username does not belong to any created accounts)
     - 404 Not Found (product has not been saved by user)
-- Example body:
+- Example JSON body:
 ```json
 {
 	"username": "example_user",
@@ -128,7 +136,7 @@ Returns list of products saved to user's account
 - HTTP Status Responses:
     - 200 OK (success, will return empty list if user has zero saved products)
     - 404 Not Found (user does not exist in local account credentials database)
-- Example body:
+- Example JSON body:
 ```json
 {
 	"username": "example_user"
