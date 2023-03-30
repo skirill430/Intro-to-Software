@@ -279,7 +279,7 @@ func BothStores(w http.ResponseWriter, r *http.Request) {
 		itemString = itemString[i:i2]
 		i3 = strings.Index(itemString, "}")
 		fmt.Printf("i = %d, i3 = %d\n", i, i3)
-		NewJson = NewJson + "\"img_Url\":"
+		NewJson = NewJson + "\"image_url\":"
 		NewJson = NewJson + " \"" + itemString[15:i3-1] //contains the url
 		if strings.Contains(itemString[16:i3-1], "\"") {
 			NewJson = NewJson + ","
