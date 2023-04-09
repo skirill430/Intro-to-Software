@@ -62,6 +62,7 @@ func TestSignIn_OK(t *testing.T) {
 	Router.ServeHTTP(response, req)
 
 	a := assert.New(t)
+	a.NotEmpty(response.Result().Cookies())
 	a.Equal(http.MethodPost, req.Method, "HTTP request method error")
 	a.Equal(http.StatusOK, response.Code, "HTTP request status code error")
 
