@@ -17,7 +17,7 @@ type Cookies struct {
 }
 
 type UserProduct struct {
-	Username    string `json:"username"`
+	Username    string `json:"username,omitempty"`
 	SellerName  string `json:"seller_name"`
 	ProductName string `json:"product_name"`
 	Price       string `json:"price"`
