@@ -77,32 +77,14 @@ func AuthenticateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Declare the expiration time of the token: 24 hours
-	expirationTime := time.Now().Add(24 * time.Hour)
-	// Create the JWT claims, which includes the username and expiry time
-	cookies := utils.Cookies{
-		Username: dbUser.Username,
-		RegisteredClaims: jwt.RegisteredClaims{
-			// In JWT, the expiry time is expressed as unix milliseconds
-			ExpiresAt: jwt.NewNumericDate(expirationTime),
-		},
-	}
-
-	// Declare the token with the algorithm used for signing, and the claims
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, cookies)
-	// Create the JWT string
-	tokenString, err := token.SignedString(utils.JwtKey)
-	if err != nil {
-		// If there is an error in creating the JWT return an internal server error
-		w.WriteHeader(http.StatusInternalServerError)
+	cookie, status := utils.GenerateUsernameCookie(dbUser.Username)
+	// if cookie creation failed, return appropriate error
+	if status != 200 {
+		w.WriteHeader(status)
 		return
 	}
 
-	http.SetCookie(w, &http.Cookie{
-		Name:    "token",
-		Value:   tokenString,
-		Expires: expirationTime,
-	})
+	http.SetCookie(w, cookie)
 }
 
 func Welcome(w http.ResponseWriter, r *http.Request) {
@@ -153,6 +135,8 @@ func Logout(w http.ResponseWriter, r *http.Request) {
 	// clear the jwt authentication cookie from browser
 	http.SetCookie(w, &http.Cookie{
 		Name:    "token",
+		Domain:  "localhost",
+		Path:    "/",
 		Expires: time.Now(),
 	})
 
