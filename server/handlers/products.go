@@ -21,6 +21,7 @@ func SaveProduct(w http.ResponseWriter, r *http.Request) {
 	// if cookie unpacking failed, return appropriate error
 	if status != 200 {
 		w.WriteHeader(status)
+		w.Write([]byte("Ensure that you are logged in and have a login cookie in your browser."))
 		return
 	}
 
@@ -63,6 +64,7 @@ func RemoveProduct(w http.ResponseWriter, r *http.Request) {
 	// if cookie unpacking failed, return appropriate error
 	if status != 200 {
 		w.WriteHeader(status)
+		w.Write([]byte("Ensure that you are logged in and have a login cookie in your browser."))
 		return
 	}
 
@@ -101,6 +103,7 @@ func GetAllProducts(w http.ResponseWriter, r *http.Request) {
 	// if cookie unpacking failed, return appropriate error
 	if status != 200 {
 		w.WriteHeader(status)
+		w.Write([]byte("Ensure that you are logged in and have a login cookie in your browser."))
 		return
 	}
 

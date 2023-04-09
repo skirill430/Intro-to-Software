@@ -38,6 +38,15 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Sorry, this username is already taken. Enter another username."))
 		return
 	}
+
+	cookie, status := utils.GenerateUsernameCookie(user.Username)
+	// if cookie creation failed, return appropriate error
+	if status != 200 {
+		w.WriteHeader(status)
+		return
+	}
+
+	http.SetCookie(w, cookie)
 }
 
 func AuthenticateUser(w http.ResponseWriter, r *http.Request) {

@@ -21,6 +21,7 @@ func TestSignUp_OK(t *testing.T) {
 
 	a := assert.New(t)
 	a.Equal(http.MethodPost, req.Method, "HTTP request method error")
+	a.NotEmpty(response.Result().Cookies())
 	a.Equal(http.StatusOK, response.Code, "HTTP request status code error")
 
 	// delete newly created user in between tests, database is only cleared after all tests are executed
