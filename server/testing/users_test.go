@@ -100,3 +100,15 @@ func TestSignIn_PasswordIncorrect(t *testing.T) {
 
 	utils.DeleteUser("test-username")
 }
+
+func TestLogout_OK(t *testing.T) {
+	req, _ := http.NewRequest("POST", "/api/user/logout", nil)
+	response := httptest.NewRecorder()
+	Router.ServeHTTP(response, req)
+
+	a := assert.New(t)
+	a.NotEmpty(response.Result().Cookies())
+	a.Empty(response.Result().Cookies()[0].Value)
+	a.Equal(http.MethodPost, req.Method, "HTTP request method error")
+	a.Equal(http.StatusOK, response.Code, "HTTP request status code error")
+}
