@@ -9,21 +9,20 @@ import (
 	"gorm.io/gorm"
 )
 
-/*
-	{
-		"username": "user1",
-		"seller_name": "Target",
-		"product_name": "North Face Backpack",
-		"price": "$120.00",
-		"rating": "4.6",
-		"image_url": ""
-	}
-*/
 func SaveProduct(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	var product utils.UserProduct
 	json.NewDecoder(r.Body).Decode(&product)
+
+	username, status := utils.ExtractUsernameFromCookie(w, r)
+	product.Username = username
+
+	// if cookie unpacking failed, return appropriate error
+	if status != 200 {
+		w.WriteHeader(status)
+		return
+	}
 
 	// fine if no image URL is provided
 	if product.Username == "" || product.ProductName == "" || product.Price == "" || product.Rating == "" || product.SellerName == "" {
@@ -58,6 +57,15 @@ func RemoveProduct(w http.ResponseWriter, r *http.Request) {
 	var product utils.UserProduct
 	json.NewDecoder(r.Body).Decode(&product)
 
+	username, status := utils.ExtractUsernameFromCookie(w, r)
+	product.Username = username
+
+	// if cookie unpacking failed, return appropriate error
+	if status != 200 {
+		w.WriteHeader(status)
+		return
+	}
+
 	// fine if no image URL is provided
 	if product.Username == "" || product.ProductName == "" || product.Price == "" || product.Rating == "" {
 		w.WriteHeader(http.StatusBadRequest)
@@ -83,16 +91,20 @@ func RemoveProduct(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Sorry, this product cannot be found in the user's saved products."))
 		return
 	}
-
 }
 
 func GetAllProducts(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
-	var body utils.UserProduct
-	json.NewDecoder(r.Body).Decode(&body)
+	username, status := utils.ExtractUsernameFromCookie(w, r)
 
-	if body.Username == "" {
+	// if cookie unpacking failed, return appropriate error
+	if status != 200 {
+		w.WriteHeader(status)
+		return
+	}
+
+	if username == "" {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte("Request Body Missing Fields"))
 		return
@@ -100,7 +112,7 @@ func GetAllProducts(w http.ResponseWriter, r *http.Request) {
 
 	// check if username has account tied to it
 	var dbUser *utils.User
-	err := utils.UsersDB.First(&dbUser, "username = ?", body.Username).Error
+	err := utils.UsersDB.First(&dbUser, "username = ?", username).Error
 
 	if errors.Is(err, gorm.ErrRecordNotFound) {
 		w.WriteHeader(http.StatusNotFound)
@@ -109,7 +121,8 @@ func GetAllProducts(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var products []utils.UserProduct
-	utils.UserProductsDB.Where("username = ?", body.Username).Find(&products)
+	// return all fields except username (struct will omit returning username field as it is empty) to protect user data
+	utils.UserProductsDB.Where("username = ?", username).Select("seller_name", "product_name", "price", "rating", "image_url").Find(&products)
 
 	json.NewEncoder(w).Encode(products)
 }
