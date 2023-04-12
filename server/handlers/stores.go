@@ -124,8 +124,12 @@ func BothStores(w http.ResponseWriter, r *http.Request) {
 	//fmt.Printf(itemString)
 	var i2 int
 	i3 := 0
+	count := 0
 	for i != -1 {
-		i = strings.Index(itemString, "parent")
+		if count >= 20 {
+			break
+		}
+		i = strings.Index(itemString, "enrichment\":{\"buy_url")
 		if i == -1 {
 			break
 		}
@@ -146,7 +150,7 @@ func BothStores(w http.ResponseWriter, r *http.Request) {
 			break
 		}
 
-		i = strings.Index(itemString, "parent")
+		i = strings.Index(itemString, "enrichment\":{\"buy_url")
 
 		i2 = len(itemString) - 1
 		itemString = itemString[i:i2]
@@ -212,6 +216,7 @@ func BothStores(w http.ResponseWriter, r *http.Request) {
 
 		//fmt.Printf("made it this far7")
 		//fmt.Printf(NewJson)
+		count++
 	}
 	NewJson = NewJson[0 : len(NewJson)-2]
 	NewJson = NewJson + "},"
@@ -279,7 +284,7 @@ func BothStores(w http.ResponseWriter, r *http.Request) {
 		itemString = itemString[i:i2]
 		i3 = strings.Index(itemString, "}")
 		fmt.Printf("i = %d, i3 = %d\n", i, i3)
-		NewJson = NewJson + "\"image_url\":"
+		NewJson = NewJson + "\"img_Url\":"
 		NewJson = NewJson + " \"" + itemString[15:i3-1] //contains the url
 		if strings.Contains(itemString[16:i3-1], "\"") {
 			NewJson = NewJson + ","
