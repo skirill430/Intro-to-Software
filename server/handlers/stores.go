@@ -249,19 +249,40 @@ func BothStores(w http.ResponseWriter, r *http.Request) {
 	itemString = string(body)
 	i2 = len(itemString) - 1
 	i3 = 0
+	count = 0
 	for i != -1 {
+		if count >= 20 {
+			break
+		}
 		i = strings.Index(itemString, "\"Product\"")
 		if i == -1 {
 			break
 		}
+		i = strings.Index(itemString, "\"name\"")
+		if i == -1 {
+			break
+		}
+		i = strings.Index(itemString, "thumbnailUrl")
+		if i == -1 {
+			break
+		}
+		i = strings.Index(itemString, "averageRating")
+		if i == -1 {
+			break
+		}
+		i = strings.Index(itemString, "$")
+		if i == -1 {
+			break
+		}
+
+		i = strings.Index(itemString, "\"Product\"")
+
 		i2 = len(itemString) - 1
 		itemString = itemString[i:i2]
 		//fmt.Printf("made it this far3")
 
 		i = strings.Index(itemString, "\"name\"")
-		if i == -1 {
-			break
-		}
+
 		//fmt.Printf("made it this far4")
 		i2 = len(itemString) - 1
 		fmt.Printf("i = %d, i2 = %d\n", i, i2)
@@ -277,9 +298,7 @@ func BothStores(w http.ResponseWriter, r *http.Request) {
 		//fmt.Printf("made it this far4")
 
 		i = strings.Index(itemString, "thumbnailUrl")
-		if i == -1 {
-			break
-		}
+
 		i2 = len(itemString) - 1
 		itemString = itemString[i:i2]
 		i3 = strings.Index(itemString, "}")
@@ -295,9 +314,7 @@ func BothStores(w http.ResponseWriter, r *http.Request) {
 		//fmt.Printf("made it this far5")
 
 		i = strings.Index(itemString, "averageRating")
-		if i == -1 {
-			break
-		}
+
 		i2 = len(itemString) - 1
 		itemString = itemString[i:i2]
 		i3 = strings.Index(itemString, ",")
@@ -309,9 +326,7 @@ func BothStores(w http.ResponseWriter, r *http.Request) {
 		//fmt.Printf("made it this far6")
 
 		i = strings.Index(itemString, "$")
-		if i == -1 {
-			break
-		}
+
 		i2 = len(itemString) - 1
 		itemString = itemString[i:i2]
 		i3 = strings.Index(itemString, ",")
@@ -331,6 +346,7 @@ func BothStores(w http.ResponseWriter, r *http.Request) {
 
 		//fmt.Printf("made it this far7")
 		//fmt.Printf(NewJson)
+		count++
 	}
 	NewJson = NewJson[0 : len(NewJson)-2]
 	NewJson = NewJson + "}]"
