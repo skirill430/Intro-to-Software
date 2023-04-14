@@ -17,12 +17,14 @@ import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import {MatTableModule} from '@angular/material/table';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     routingComponents,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,
