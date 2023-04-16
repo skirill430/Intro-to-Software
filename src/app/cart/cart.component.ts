@@ -10,6 +10,7 @@ import * as http from '../http.service';
 })
 export class CartComponent {
   products : http.ItemList;
+  displayedColumns : any[] = ['name','imgUrl','price','rating','store_id', 'remove_button'];
 
   constructor (private router : Router, private httpService: HttpService) {}
 
@@ -23,5 +24,11 @@ export class CartComponent {
       console.log(response);
       this.products = response;
     })
+  }
+  sendRemoveProduct(item : http.RootObject) {
+    this.httpService.deleteProduct(item).subscribe(response => {
+      console.log(response);
+    })
+    this.ngOnInit();
   }
 }

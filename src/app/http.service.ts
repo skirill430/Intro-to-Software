@@ -505,6 +505,15 @@ export class HttpService {
     }),
       withCredentials: true
     };
+    private deleteOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Access-Control-Allow-Origin': '*',
+    }),
+      withCredentials: true,
+      body: {}
+    };
+
   
     constructor(private http: HttpClient) {
     }
@@ -526,7 +535,8 @@ export class HttpService {
       return this.http.post<HttpResponse<any>>(this.productURL, product, this.httpOptions);
     }
     deleteProduct(product: RootObject) {
-      return this.http.delete<HttpResponse<any>>(this.productURL + '/' + product.product_name, this.httpOptions);
+      this.deleteOptions.body = product;
+      return this.http.delete<HttpResponse<any>>(this.productURL, this.deleteOptions);
     }
     getProducts() : Observable<ItemList> {
       return this.http.get<ItemList>(this.productURL, this.getOptions);
