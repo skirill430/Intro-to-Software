@@ -39,6 +39,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	cookie, status := utils.GenerateUsernameCookie(user.Username)
+	cookie.Secure = false
 	// if cookie creation failed, return appropriate error
 	if status != 200 {
 		w.WriteHeader(status)
@@ -88,6 +89,7 @@ func AuthenticateUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	cookie, status := utils.GenerateUsernameCookie(dbUser.Username)
+	cookie.Secure = false
 	// if cookie creation failed, return appropriate error
 	if status != 200 {
 		w.WriteHeader(status)
