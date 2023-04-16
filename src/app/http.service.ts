@@ -493,9 +493,9 @@ export class HttpService {
       observe: 'response' as 'response',
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
-        Authorization: this.authToken,
-        'Access-Control-Allow-Origin': '*'
-      })
+        'Access-Control-Allow-Origin': '*',
+      }),
+      withCredentials: true
     };
   
     constructor(private http: HttpClient) {

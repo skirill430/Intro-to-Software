@@ -17,9 +17,10 @@ func main() {
 	utils.ConnectDB("products")
 
 	corsHandler := cors.New(cors.Options{
-		AllowedOrigins: []string{"http://localhost:4200", "http://localhost", "http://132.145.212.18", "http://132.145.212.18/home"},
-		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
-		AllowedHeaders: []string{"*"},
+		AllowedOrigins:   []string{"http://localhost:4200", "http://localhost", "http://132.145.212.18", "http://132.145.212.18/home"},
+		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowedHeaders:   []string{"*"},
+		AllowCredentials: true,
 	})
 
 	fmt.Println("Server running on Port 9000...")
