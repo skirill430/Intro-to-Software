@@ -467,6 +467,8 @@ import { environment } from '../environments/environment'
 //       data: Data;
 //   }
 
+
+
 export interface RootObject {
 	image_url: string;
 	product_name: string;
@@ -480,14 +482,24 @@ export type ItemList = Array<RootObject>;
 @Injectable({
   providedIn: 'root'
 })
+
 export class HttpService {
 
-    private walmartURL = 'http://' + environment.serverURL + ':9000/walmart'
     private bothURL = 'http://' + environment.serverURL + ':9000/bothStores'
     private signupUserURL = 'http://' + environment.serverURL + ':9000/api/user/signup'
     private loginUserURL = 'http://' + environment.serverURL + ':9000/api/user/signin'
+    private authToken = '';
+    private httpOptions = {
+      observe: 'response' as 'response',
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        Authorization: this.authToken,
+        'Access-Control-Allow-Origin': '*'
+      })
+    };
   
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) {
+    }
   
     getAllItems(query : String) : Observable<ItemList> {
       return this.http.post<ItemList>(this.bothURL, query);
@@ -495,10 +507,10 @@ export class HttpService {
   
   //   sign up button call
     sendSignupInfo(username : String, password : String) : Observable<HttpResponse<any>>  {
-      return this.http.post<HttpResponse<any>>(this.signupUserURL, { username: username, password: password }, {observe : 'response'});
+      return this.http.post<HttpResponse<any>>(this.signupUserURL, { username: username, password: password }, this.httpOptions);
     }
   //   log in button call
     sendLoginInfo(username : String, password : String) : Observable<HttpResponse<any>>  {
-      return this.http.post<HttpResponse<any>>(this.loginUserURL, { username: username, password: password }, {observe : 'response'});
+      return this.http.post<HttpResponse<any>>(this.loginUserURL, { username: username, password: password }, this.httpOptions);
     }
   }

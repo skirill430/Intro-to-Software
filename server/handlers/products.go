@@ -11,6 +11,7 @@ import (
 
 func SaveProduct(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 
 	var product utils.UserProduct
 	json.NewDecoder(r.Body).Decode(&product)
@@ -97,6 +98,7 @@ func RemoveProduct(w http.ResponseWriter, r *http.Request) {
 
 func GetAllProducts(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 
 	username, status := utils.ExtractUsernameFromCookie(w, r)
 
