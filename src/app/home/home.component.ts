@@ -26,6 +26,12 @@ export class HomeComponent {
     })
   }
 
+  sendSaveProduct(item : http.RootObject) {
+    this.httpService.saveProduct(item).subscribe(response => {
+      console.log(response);
+      console.log(response.status);
+    })
+  }
   // routing function to take user to pageName
   goToPage(pageName:string):void {
     this.router.navigate([`${pageName}`]);

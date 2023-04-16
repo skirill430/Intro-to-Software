@@ -488,6 +488,7 @@ export class HttpService {
     private bothURL = 'http://' + environment.serverURL + ':9000/bothStores'
     private signupUserURL = 'http://' + environment.serverURL + ':9000/api/user/signup'
     private loginUserURL = 'http://' + environment.serverURL + ':9000/api/user/signin'
+    private productURL = 'http://' + environment.serverURL + ':9000/api/products'
     private authToken = '';
     private httpOptions = {
       observe: 'response' as 'response',
@@ -512,5 +513,15 @@ export class HttpService {
   //   log in button call
     sendLoginInfo(username : String, password : String) : Observable<HttpResponse<any>>  {
       return this.http.post<HttpResponse<any>>(this.loginUserURL, { username: username, password: password }, this.httpOptions);
+    }
+    saveProduct(product: RootObject) {
+      console.log(product)
+      return this.http.post<HttpResponse<any>>(this.productURL, product, this.httpOptions);
+    }
+    deleteProduct(product: RootObject) {
+      return this.http.delete<HttpResponse<any>>(this.productURL + '/' + product.product_name, this.httpOptions);
+    }
+    getProducts() {
+      return this.http.get<HttpResponse<any>>(this.productURL, this.httpOptions);
     }
   }

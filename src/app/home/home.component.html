@@ -74,7 +74,7 @@
       <!-- Button to add to cart -->
       <ng-container matColumnDef="add_button">
         <th mat-header-cell *matHeaderCellDef> Add To Cart </th>
-        <td mat-cell *matCellDef="let element"> <button mat-raised-button color="primary">Add</button> </td>
+        <td mat-cell *matCellDef="let element"> <button (click)="sendSaveProduct(element)" mat-raised-button color="primary">Add</button> </td>
       </ng-container>
       
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
