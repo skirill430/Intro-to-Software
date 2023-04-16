@@ -16,7 +16,7 @@ import (
 func CreateUser(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
-	w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+	w.Header().Set("Access-Control-Allow-Headers", "*")
 
 	var user utils.User
 	json.NewDecoder(r.Body).Decode(&user)
@@ -40,6 +40,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 
 	cookie, status := utils.GenerateUsernameCookie(user.Username)
 	cookie.Secure = false
+	cookie.SameSite = http.SameSiteNoneMode
 	// if cookie creation failed, return appropriate error
 	if status != 200 {
 		w.WriteHeader(status)
@@ -90,6 +91,7 @@ func AuthenticateUser(w http.ResponseWriter, r *http.Request) {
 
 	cookie, status := utils.GenerateUsernameCookie(dbUser.Username)
 	cookie.Secure = false
+	cookie.SameSite = http.SameSiteNoneMode
 	// if cookie creation failed, return appropriate error
 	if status != 200 {
 		w.WriteHeader(status)
