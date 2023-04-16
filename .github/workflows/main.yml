@@ -109,11 +109,10 @@ jobs:
           rm -r * || true
     - name: SCP Files via SSH
       uses: appleboy/scp-action@master
-      env:
-        USERNAME: ${{ secrets.SSH_USER }}
-        HOST: ${{ secrets.HOST }}
-        KEY: ${{ secrets.PRIVATE_KEY }}
       with:
+        username: ${{ secrets.SSH_USER }}
+        host: ${{ secrets.HOST }}
+        key: ${{ secrets.PRIVATE_KEY }}
         source: 'angular.tar,go.tar'
         target: '/var/www/html'
         overwrite: true
