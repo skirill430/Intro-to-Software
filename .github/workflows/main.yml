@@ -81,7 +81,7 @@ jobs:
       with:
         start: npm start
         # for now only a single URL can be waited on
-        wait-on: 'http://localhost:9000/walmart'
+        wait-on: 'http://localhost:9000/bothStores'
         
   deploy:
     runs-on: ubuntu-latest
