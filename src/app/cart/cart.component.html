@@ -46,4 +46,23 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
-<!-- TODO: List of items that user has saved to their cart -->
+
+<!-- Footer that is fixed to bottom of page -->
+<footer>
+  <mat-toolbar color="primary">
+    CEN3031
+
+    <!-- Spacer across toolbar-->
+    <span class="big-spacer"></span>
+
+    <!-- Heart Icon -->
+    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+      <mat-icon>favorite</mat-icon>
+    </button>
+
+    <!-- Share Icon -->
+    <button mat-icon-button class="example-icon" id="share" aria-label="Example icon-button with share icon">
+      <mat-icon>share</mat-icon>
+    </button>
+  </mat-toolbar>
+</footer>
