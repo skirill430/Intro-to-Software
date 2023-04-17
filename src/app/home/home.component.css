@@ -1,18 +1,25 @@
 .big-spacer {
     flex: 25 auto;
-  }
+}
 
-  .small-spacer {
-    flex: 1 auto;
-  }
-  
-  .example-sidenav-content {
-    display: flex;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .example-sidenav {
-    padding: 20px;
-  }
+.small-spacer {
+  flex: 1 auto;
+}
+
+.example-sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.example-sidenav {
+  padding: 20px;
+}
+
+footer {
+  position:fixed;
+  bottom:0px;
+  background-color:blue;
+  width:100%;
+}

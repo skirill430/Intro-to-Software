@@ -29,16 +29,7 @@
       <!-- Button to take user to cart page -->
       <button (click)="goToPage('cart')" mat-flat-button>View Cart</button>
   
-      <!-- Heart Icon (Not Currently Functional) -->
-      <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-        <mat-icon>favorite</mat-icon>
-      </button>
-  
-      <!-- Share Icon (Not Currently Functional) -->
-      <button mat-icon-button class="example-icon" id="share" aria-label="Example icon-button with share icon">
-        <mat-icon>share</mat-icon>
-      </button>
-    </mat-toolbar>
+    </mat-toolbar> <!-- End of top toolbar contents -->
     
     <!-- Search Input Box in Main Body -->
     <form (change)="save()">
@@ -80,5 +71,25 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+
+    <!-- Footer that is fixed to bottom of page -->
+    <footer>
+      <mat-toolbar color="primary">
+        CEN3031
+
+        <!-- Spacer across toolbar-->
+        <span class="big-spacer"></span>
+
+        <!-- Heart Icon -->
+        <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+          <mat-icon>favorite</mat-icon>
+        </button>
+  
+        <!-- Share Icon -->
+        <button mat-icon-button class="example-icon" id="share" aria-label="Example icon-button with share icon">
+          <mat-icon>share</mat-icon>
+        </button>
+      </mat-toolbar>
+    </footer>
   
   </mat-drawer-container>
