@@ -5,7 +5,7 @@ describe('template spec', () => {
       method: 'POST',
     }).as('apiCheck')
     cy.get('input').type('test')
-    cy.get('#share').click()
+    cy.get('#code').click()
     cy
     .wait('@apiCheck')
     .then(intercept => {
