@@ -320,7 +320,7 @@ func BothStores(w http.ResponseWriter, r *http.Request) {
 		i3 = strings.Index(itemString, ",")
 		fmt.Printf("i = %d, i3 = %d\n", i, i3)
 		NewJson = NewJson + "\"rating\":"
-		NewJson = NewJson + " \"" + itemString[15:i3-1] //contains the rating
+		NewJson = NewJson + " \"" + itemString[15:i3] //contains the rating
 		NewJson = NewJson + "\","
 
 		//fmt.Printf("made it this far6")
@@ -335,7 +335,7 @@ func BothStores(w http.ResponseWriter, r *http.Request) {
 			NewJson = NewJson + "\"price\":" + "\"fals\","
 		} else {
 			NewJson = NewJson + "\"price\":"
-			NewJson = NewJson + "\"" + itemString[1:i3-1] //contains the price
+			NewJson = NewJson + "\"" + "$" + itemString[1:i3-1] //contains the price
 			if strings.Contains(itemString[1:i3-1], "\"") {
 				NewJson = NewJson + ","
 			} else {
