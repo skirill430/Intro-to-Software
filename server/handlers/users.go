@@ -17,6 +17,9 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
 	w.Header().Set("Access-Control-Allow-Headers", "*")
+	// if utils.Key == 1 {
+	// 	w.Header().Set("Domain", "http://132.145.212.18/")
+	// }
 
 	var user utils.User
 	json.NewDecoder(r.Body).Decode(&user)
