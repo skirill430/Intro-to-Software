@@ -40,7 +40,7 @@
     <!-- Header -->
     <h1>For returning users:</h1>
     <!-- Button  -->
-    <button (click)="sendLogin()" (click)="goToPage('home')" mat-raised-button color="primary">Log In</button>
+    <button (click)="sendLogin('home')" mat-raised-button color="primary">Log In</button>
 </section>
 
 <!-- Signup button -->
@@ -48,9 +48,13 @@
     <!-- Header -->
     <h1>For new users:</h1>
     <!-- Button -->
-    <button (click)="sendSignup()" (click)="goToPage('home')" mat-raised-button color="primary">Sign Up</button>
+    <button (click)="sendSignup('home')" mat-raised-button color="primary">Sign Up</button>
 </section>
 
+<!-- Error message -->
+<h1 style="text-align:center; color:red" >
+  {{ error }}
+</h1>
 
 <!-- Footer that is fixed to bottom of page -->
 <footer>
