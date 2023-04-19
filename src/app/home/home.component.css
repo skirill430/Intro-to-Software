@@ -6,17 +6,6 @@
   flex: 1 auto;
 }
 
-.example-sidenav-content {
-  display: flex;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-}
-
-.example-sidenav {
-  padding: 20px;
-}
-
 footer {
   position:fixed;
   bottom:0px;
