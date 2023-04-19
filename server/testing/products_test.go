@@ -33,7 +33,7 @@ func TestSaveProduct_OK(t *testing.T) {
 	a.Equal(http.StatusOK, response.Code, "HTTP request status code error")
 
 	// delete newly created UserProduct in between tests
-	//utils.DeleteUserProduct("example_user", "North Face Backpack", "Target")
+	utils.DeleteUserProduct("example_user", "North Face Backpack", "Target")
 }
 
 func TestSaveProduct_UnknownUsername(t *testing.T) {
