@@ -10,14 +10,17 @@
     <!-- Spacer across Menu Bar -->
     <span class="big-spacer"></span>
 
-    <!-- Button to take you to login page -->
-    <button (click)="goToPage('login')" mat-flat-button>Login / Signup</button>
+     <!-- Button to sign out -->
+     <button *ngIf="cookie_id != ''" (click)="signOut()" mat-flat-button>Sign Out</button>
 
+     <!-- Button to take you to login page -->
+     <button *ngIf="cookie_id == ''" (click)="goToPage('login')" mat-flat-button>Login / Signup</button>
+ 
     <!-- Spacer between buttons -->
     <span class="small-spacer"></span>
 
     <!-- Button to take user to cart page -->
-    <button (click)="goToPage('cart')" mat-flat-button>View Cart</button>
+    <button *ngIf="cookie_id != ''" (click)="goToPage('cart')" mat-flat-button>View Cart</button>
 
   </mat-toolbar> <!-- End of top toolbar contents -->
   

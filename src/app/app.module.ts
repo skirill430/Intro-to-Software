@@ -20,6 +20,7 @@ import {MatTableModule} from '@angular/material/table';
 import { CartComponent } from './cart/cart.component';
 import {MatSortModule} from '@angular/material/sort';
 import {MatSort, Sort} from '@angular/material/sort';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,7 @@ import {MatSort, Sort} from '@angular/material/sort';
     MatTableModule,
     MatSortModule
   ],
-  providers: [HttpService],
+  providers: [HttpService, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
