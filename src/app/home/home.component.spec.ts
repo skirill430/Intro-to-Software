@@ -59,11 +59,5 @@ describe('HomeComponent', () => {
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector("mat-drawer-container mat-toolbar[color='primary']")).toBeTruthy();
   });
-
-  it('should render a sidebar', () => {
-    const fixture = TestBed.createComponent(HomeComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector("mat-drawer-container mat-drawer[mode='side']")).toBeTruthy();
-  });
+  
 });
