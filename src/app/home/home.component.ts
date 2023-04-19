@@ -49,4 +49,8 @@ export class HomeComponent {
   goToPage(pageName:string):void {
     this.router.navigate([`${pageName}`]);
   }
+
+  ngOnInit() {
+    
+  }
 }
