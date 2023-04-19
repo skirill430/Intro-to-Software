@@ -1,13 +1,12 @@
 package handlers
 
 import (
-	"strings"
-	//"encoding/json"
 	"bytes"
 	"fmt"
 	"io"
 	"log"
 	"net/http"
+	"strings"
 )
 
 func Walmart(w http.ResponseWriter, r *http.Request) {
@@ -87,7 +86,6 @@ func BothStores(w http.ResponseWriter, r *http.Request) {
 	var append string
 
 	var itemString string
-	//var itemsJson []ItemData
 
 	search, err = io.ReadAll(r.Body)
 	if err != nil {
@@ -116,14 +114,11 @@ func BothStores(w http.ResponseWriter, r *http.Request) {
 	defer res.Body.Close()
 	body, _ := io.ReadAll(res.Body)
 
-	//fmt.Printf("made it this far")
-
 	NewJson := `[`
 	i := 0
 	temp1 := 0
 	temp2 := 0
 	itemString = string(body)
-	//fmt.Printf(itemString)
 	var i2 int
 	i3 := 0
 	count := 0
@@ -161,28 +156,19 @@ func BothStores(w http.ResponseWriter, r *http.Request) {
 
 			i2 = len(itemString) - 1
 			itemString = itemString[i:i2]
-			//fmt.Printf("made it this far3")
 
 			i = strings.Index(itemString, "primary_image_url")
-			//fmt.Printf("made it this far4")
 			i2 = len(itemString) - 1
-			//fmt.Printf("i = %d, i3 = %d\n", i, i2)
 			itemString = itemString[i:i2]
-			//fmt.Printf("made it this far5")
 			i3 = strings.Index(itemString, "}")
-			//fmt.Printf("made it this far6")
-			//fmt.Printf("i = %d, i3 = %d\n", i, i3)
 			NewJson = NewJson + "{\"image_url\":"
 			NewJson = NewJson + itemString[19:i3-1] //contains the url
 			NewJson = NewJson + "\","
-
-			//fmt.Printf("made it this far4")
 
 			i = strings.Index(itemString, "\"title\"")
 			i2 = len(itemString) - 1
 			itemString = itemString[i:i2]
 			i3 = strings.Index(itemString, "}")
-			//fmt.Printf("i = %d, i3 = %d\n", i, i3)
 			NewJson = NewJson + "\"product_name\""
 			NewJson = NewJson + itemString[7:i3] //contains the name
 			if strings.Contains(itemString[8:i3], "\"") {
@@ -191,13 +177,10 @@ func BothStores(w http.ResponseWriter, r *http.Request) {
 				NewJson = NewJson + "\","
 			}
 
-			//fmt.Printf("made it this far5")
-
 			i = strings.Index(itemString, "formatted_current_price\"")
 			i2 = len(itemString) - 1
 			itemString = itemString[i:i2]
 			i3 = strings.Index(itemString, ",")
-			//fmt.Printf("i = %d, i3 = %d\n", i, i3)
 			NewJson = NewJson + "\"price\":"
 			NewJson = NewJson + "\"" + itemString[26:i3] //contains the price
 			if strings.Contains(itemString[27:i3], "\"") {
@@ -208,7 +191,6 @@ func BothStores(w http.ResponseWriter, r *http.Request) {
 			} else {
 				NewJson = NewJson + "\","
 			}
-			//fmt.Printf("made it this far6")
 
 			i = strings.Index(itemString, "average")
 			i2 = len(itemString) - 1
@@ -221,26 +203,16 @@ func BothStores(w http.ResponseWriter, r *http.Request) {
 				NewJson = NewJson + "\"" + "" + "\"" //contains the rating
 				NewJson = NewJson + ","
 			} else {
-				//fmt.Printf("i = %d, i3 = %d\n", i, i3)
 				NewJson = NewJson + "\"rating\":"
 				NewJson = NewJson + "\"" + itemString[9:i3-1] + "\"" //contains the rating
 				NewJson = NewJson + ","
 			}
 			NewJson = NewJson + "\"seller_name\":\"Target\"},"
 
-			//fmt.Printf("made it this far7")
-			//fmt.Printf(NewJson)
 			count++
 		}
 		NewJson = NewJson[0 : len(NewJson)-2]
 		NewJson = NewJson + "},"
-
-		search, err = io.ReadAll(r.Body)
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		//append = bytes.NewBuffer(search).String()
 
 		url = "https://walmart.p.rapidapi.com/products/v2/list?cat_id=0&sort=best_seller&page=1&query="
 
@@ -261,7 +233,6 @@ func BothStores(w http.ResponseWriter, r *http.Request) {
 		body, _ = io.ReadAll(res.Body)
 		i = 0
 		itemString = string(body)
-		i2 = len(itemString) - 1
 		i3 = 0
 		count = 0
 		for i != -1 {
@@ -293,30 +264,19 @@ func BothStores(w http.ResponseWriter, r *http.Request) {
 
 			i2 = len(itemString) - 1
 			itemString = itemString[i:i2]
-			//fmt.Printf("made it this far3")
-
 			i = strings.Index(itemString, "\"name\"")
-
-			//fmt.Printf("made it this far4")
 			i2 = len(itemString) - 1
-			//fmt.Printf("i = %d, i2 = %d\n", i, i2)
 			itemString = itemString[i:i2]
-			//fmt.Printf("made it this far5")
 			i3 = strings.Index(itemString, ",")
-			//fmt.Printf("made it this far6")
-			//fmt.Printf("i = %d, i3 = %d\n", i, i3)
 			NewJson = NewJson + "{\"product_name\":"
 			NewJson = NewJson + itemString[7:i3-1] //contains the name
 			NewJson = NewJson + "\","
-
-			//fmt.Printf("made it this far4")
 
 			i = strings.Index(itemString, "thumbnailUrl")
 
 			i2 = len(itemString) - 1
 			itemString = itemString[i:i2]
 			i3 = strings.Index(itemString, "}")
-			//fmt.Printf("i = %d, i3 = %d\n", i, i3)
 			NewJson = NewJson + "\"image_url\":"
 			NewJson = NewJson + " \"" + itemString[15:i3-1] //contains the url
 			if strings.Contains(itemString[16:i3-1], "\"") {
@@ -325,14 +285,11 @@ func BothStores(w http.ResponseWriter, r *http.Request) {
 				NewJson = NewJson + "\","
 			}
 
-			//fmt.Printf("made it this far5")
-
 			i = strings.Index(itemString, "averageRating")
 
 			i2 = len(itemString) - 1
 			itemString = itemString[i:i2]
 			i3 = strings.Index(itemString, ",")
-			//fmt.Printf("i = %d, i3 = %d\n", i, i3)
 			temp := itemString[15:i3]
 			tempi := strings.Index(temp, "nul")
 			if tempi != -1 {
@@ -344,14 +301,11 @@ func BothStores(w http.ResponseWriter, r *http.Request) {
 				NewJson = NewJson + " \"" + itemString[15:i3] //contains the rating
 				NewJson = NewJson + "\","
 			}
-			//fmt.Printf("made it this far6")
 
 			i = strings.Index(itemString, "$")
-
 			i2 = len(itemString) - 1
 			itemString = itemString[i:i2]
 			i3 = strings.Index(itemString, ",")
-			//fmt.Printf("i = %d, i3 = %d\n", i, i3)
 			if strings.Contains(itemString[1:i3-1], "fals") {
 				NewJson = NewJson + "\"price\":" + "\"fals\","
 			} else {
@@ -365,51 +319,11 @@ func BothStores(w http.ResponseWriter, r *http.Request) {
 			}
 			NewJson = NewJson + "\"seller_name\":\"Walmart\"},"
 
-			//fmt.Printf("made it this far7")
-			//fmt.Printf(NewJson)
 			count++
 		}
 		NewJson = NewJson[0 : len(NewJson)-2]
 		NewJson = NewJson + "}]"
-		//fmt.Print(NewJson)
 	}
-
-	/*
-		for i != -1 {
-			i = strings.Index(itemString, "\"Product\"")
-			itemString = itemString[i:i2]
-			i = strings.Index(itemString, "\"name\"")
-			i3 = strings.Index(itemString, ",")
-			NewJson = NewJson + "{\"name\":"
-			NewJson = NewJson + itemString[i+7:i3-1] //contains the name
-			NewJson = NewJson + ","
-
-			i = strings.Index(itemString, "thumbnailUrl")
-			itemString = itemString[i:i2]
-			i3 = strings.Index(itemString, "}")
-			NewJson = NewJson + "\"imgUrl\":"
-			NewJson = NewJson + itemString[i+14:i3-1] //contains the url
-			NewJson = NewJson + ","
-
-			i = strings.Index(itemString, "averageRating")
-			itemString = itemString[i:i2]
-			i3 = strings.Index(itemString, ",")
-			NewJson = NewJson + "\"rating\":"
-			NewJson = NewJson + "\"" + itemString[i+15:i3-1] + "\"" //contains the rating
-			NewJson = NewJson + ","
-
-			i = strings.Index(itemString, "$")
-			itemString = itemString[i:i2]
-			i3 = strings.Index(itemString, ",")
-			NewJson = NewJson + "\"price\":"
-			NewJson = NewJson + "\"" + itemString[i+1:i3-1] //contains the price
-			NewJson = NewJson + ","
-
-			NewJson = NewJson + "\"store_id\":\"Walmart\"},"
-
-		}
-	*/
-	//json.Unmarshal([]byte(NewJson), &itemsJson)
 
 	w.Write([]byte(NewJson))
 }
