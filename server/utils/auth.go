@@ -9,6 +9,8 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+// var Key int
+
 func HashAndSalt(pwd []byte) string {
 	hash, err := bcrypt.GenerateFromPassword(pwd, bcrypt.MinCost)
 	if err != nil {
@@ -41,7 +43,6 @@ func GenerateUsernameCookie(username string) (*http.Cookie, int) {
 
 	return &http.Cookie{
 		Name:    "token",
-		Domain:  "localhost",
 		Path:    "/",
 		Value:   tokenString,
 		Expires: expirationTime,
