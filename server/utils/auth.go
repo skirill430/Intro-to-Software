@@ -42,10 +42,12 @@ func GenerateUsernameCookie(username string) (*http.Cookie, int) {
 	}
 
 	return &http.Cookie{
-		Name:    "token",
-		Path:    "/",
-		Value:   tokenString,
-		Expires: expirationTime,
+		Name:     "token",
+		Path:     "/",
+		SameSite: http.SameSiteNoneMode,
+		Secure:   true,
+		Value:    tokenString,
+		Expires:  expirationTime,
 	}, 200
 }
 
