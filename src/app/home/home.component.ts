@@ -23,6 +23,12 @@ export class HomeComponent {
   constructor(private router: Router, private httpService: HttpService) {}
 
   save() {
+    // if the search term is empty, return -1
+    if (this.search == "") {
+      console.log(-1);
+      return;
+    }
+    
     console.log(this.search);
     this.httpService.getAllItems(this.search).subscribe(response => {
       console.log(response);
