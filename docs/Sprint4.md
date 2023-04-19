@@ -12,11 +12,16 @@ Video:
 - Implemented separate cart page that shows all products a user has added to their cart using cookies.
 - Added 'Sign out' button that only shows when user is logged in, and 'Sign up / Log in' button disappears when logged in.
 - Title routes to home page upon click.
+- Removed sidebar and tests relating to it.
+- Fixed add button text so it doesn't show over footer
+- Added sorting capability to front end so users can click on the name, rating, price column to sort to sort them by highest/lowest value
+- Removed home button
 
 ### Backend
 - Created route, handler function, and unit test for user logout.
 - Adapted User routes and unit tests to generate a JWT cookie that stores the username and keeps user logged in for 24 hours.
 - Adapted UserProduct routes and unit tests to extract username from the given cookie in the HTTP request.
+- Modified bothStores so it consistently sends the data from both APIs the correct format
 
 ## Frontend Tests
 ### Angular Unit Tests:
