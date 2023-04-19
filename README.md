@@ -1,34 +1,25 @@
-# Website that searches various stores to find deals.
-Project Name: QuickShop
+# Quick Shop
 
-Test link: http://132.145.212.18/
+## Description
+Tasked with developing a full stack web application using Golang and Angular, our team developed a shopping website that connects to multiple online store APIs to allow users to see a wide range of products in one place. Enter a desired item and generate a table of results from both Target and Walmart that can be filtered by name, price, and rating. For further functionality, create an account to add products to a saved list.
 
-Project Idea: website that takes from various stores/vendors' APIs to show results and find best one based on certain criteria. It will display an image of the product as well as let users make an account that then lets them save searches and make lists. Could potentially provide navigation to store that has the desired item.
+## Requirements for running and using Quick Shop
+### Prerequisites
+- Install Node.js, npm, Golang, and Angular
 
-Front End:
-Carson Sobolewski, 
-Joseph Karch
+### Cloning the repository
+- Using a terminal, navigate to the directory where you want to clone the repository
+- Run the following git command: `git clone https://github.com/skirill430/Quick-Shop.git`
 
-Back end:
-Daniel Wildsmith, 
-Kirill Sokolov
+### Installing dependencies
+- Run the following command: `npm install`
 
-To run, first execute the command to install necessary packages.
-```
-npm install
-```
+### Starting the development environment
+- Run the following command to launch the client and server simultaneously: `npm start`
 
-To run the server and client together:
-```
-npm start
-```
+## Software Engineers
+### Front End:
+Carson Sobolewski and Joseph Karch
 
-To run the client only:
-```
-ng serve
-```
-
-To run the server only:
-```
-npm run start-server
-```
+### Back end:
+Daniel Wildsmith and Kirill Sokolov
