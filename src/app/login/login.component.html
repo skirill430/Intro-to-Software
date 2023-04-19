@@ -6,11 +6,6 @@
       <!-- Spacer across header -->
       <span class="big-spacer"></span>
       
-      <!-- Home page button -->
-      <button (click)="goToPage('home')" mat-raised-button>
-        Home Page
-      </button>
-
     </mat-toolbar>
 </p>
 
@@ -56,22 +51,15 @@
   {{ error }}
 </h1>
 
-<!-- Footer that is fixed to bottom of page -->
-<footer>
+  <!-- Footer that is fixed to bottom of page -->
+  <footer>
     <mat-toolbar color="primary">
       CEN3031
-  
+
       <!-- Spacer across toolbar-->
       <span class="big-spacer"></span>
-  
-      <!-- Heart Icon -->
-      <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-        <mat-icon>favorite</mat-icon>
-      </button>
-  
-      <!-- Share Icon -->
-      <button mat-icon-button class="example-icon" id="share" aria-label="Example icon-button with share icon">
-        <mat-icon>share</mat-icon>
-      </button>
+
+      <!-- GitHub Icon -->
+      <a mat-icon-button href="https://github.com/skirill430/Quick-Shop/" class="example-icon" id='code' target="_blank"><mat-icon>code</mat-icon></a>
     </mat-toolbar>
   </footer>
