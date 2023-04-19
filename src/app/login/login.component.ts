@@ -38,7 +38,7 @@ export class LoginComponent {
     })
   }
 
-  // function to take user to home page
+  // Routing function to take user to Home Page
   goToPage(pageName:string):void {
     this.router.navigate([`${pageName}`]);
   }
