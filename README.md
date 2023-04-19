@@ -1,7 +1,7 @@
 # Quick Shop
 
 ## Description
-Tasked with developing a full stack web application using Golang and Angular, our team developed a shopping website that connects to multiple online store APIs to allow users to see a wide range of products in one place. Enter a desired item and generate a table of results from both Target and Walmart that can be filtered by name, price, and rating. For further functionality, create an account to add products to a saved list.
+Tasked with developing a full stack web application using Golang and Angular, our team developed a shopping website that connects to multiple online store APIs to allow users to see a wide range of products in one place. Enter a desired item and generate a table of results from both Target and Walmart that can be filtered by name, price, and rating. For further functionality, create an account to save or remove products to a viewable list of products.
 
 ## Requirements for running and using Quick Shop
 ### Prerequisites
