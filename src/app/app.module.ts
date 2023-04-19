@@ -21,6 +21,7 @@ import { CartComponent } from './cart/cart.component';
 import {MatSortModule} from '@angular/material/sort';
 import {MatSort, Sort} from '@angular/material/sort';
 import { CookieService } from 'ngx-cookie-service';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,7 @@ import { CookieService } from 'ngx-cookie-service';
     MatTableModule,
     MatSortModule
   ],
-  providers: [HttpService, CookieService],
+  providers: [HttpService, CookieService, {provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
