@@ -5,6 +5,7 @@ import { HttpService } from '../http.service';
 import * as http from '../http.service';
 import {MatSort, Sort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-home',
@@ -19,8 +20,9 @@ export class HomeComponent {
   @ViewChild(MatSort) sort = new MatSort();
   displayedColumns : any[] = ['product_name','image_url','price','rating','seller_name', 'add_button'];
   showFiller = false;
+  cookie_id = '';
 
-  constructor(private router: Router, private httpService: HttpService) {}
+  constructor(private router: Router, private httpService: HttpService, private cookie: CookieService) {}
 
   save() {
     // if the search term is empty, return -1
@@ -50,7 +52,15 @@ export class HomeComponent {
     this.router.navigate([`${pageName}`]);
   }
 
-  ngOnInit() {
-    
+  signOut() {
+    // delete user cookie
+    this.cookie.delete('token');
+    window.location.reload();
+  }
+
+  ngAfterContentInit() {
+    // get current cookie
+    this.cookie_id = this.cookie.get('token');   
+    console.log(this.cookie_id);
   }
 }
