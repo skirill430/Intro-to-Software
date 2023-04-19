@@ -5,6 +5,13 @@ Video:
 ## Work Completed
 
 ### Frontend
+- Added footer with link to project Github.
+- Displays error messages when user cannot sign up or log in correctly.
+- Used Angular library to implement cookies to save user data.
+- Added an 'Add to cart' column in the table to allow users to save items.
+- Implemented separate cart page that shows all products a user has added to their cart using cookies.
+- Added 'Sign out' button that only shows when user is logged in, and 'Sign up / Log in' button disappears when logged in.
+- Title routes to home page upon click.
 
 ### Backend
 - Created route, handler function, and unit test for user logout.
