@@ -18,6 +18,8 @@ import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import {MatTableModule} from '@angular/material/table';
 import { CartComponent } from './cart/cart.component';
+import {MatSortModule} from '@angular/material/sort';
+import {MatSort, Sort} from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { CartComponent } from './cart/cart.component';
     AppRoutingModule,
     ReactiveFormsModule,
     RouterModule,
-    MatTableModule
+    MatTableModule,
+    MatSortModule
   ],
   providers: [HttpService],
   bootstrap: [AppComponent]

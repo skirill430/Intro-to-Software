@@ -10,6 +10,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSortModule } from '@angular/material/sort';
 import { FormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -19,6 +20,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule, routingComponents } from '../app-routing.module';
 import { HomeComponent } from './home.component';
 import {MatTableModule} from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table';
+
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -27,7 +30,7 @@ describe('HomeComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, MatSidenavModule, MatSlideToggleModule, MatToolbarModule, MatIconModule, MatButtonModule, FormsModule,
-      MatFormFieldModule, MatInputModule, BrowserAnimationsModule, ReactiveFormsModule, AppRoutingModule, MatTableModule],
+      MatFormFieldModule, MatInputModule, BrowserAnimationsModule, ReactiveFormsModule, AppRoutingModule, MatTableModule, MatSortModule],
       providers: [HttpService],
       declarations: [ HomeComponent]
     })

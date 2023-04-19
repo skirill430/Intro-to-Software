@@ -1,95 +1,95 @@
 <!-- Container to be shifted for Sidenav (Full Screen) -->
 <mat-drawer-container autosize>
+
+  <!-- Side Navigation Window -->
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <p>Test sidenav</p>
+  </mat-drawer>
+
+  <!-- Toolbar at Top of Page -->
+  <mat-toolbar color="primary">
+
+    <!-- Hamburger Menu Button (Toggles Sidenav) -->
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="drawer.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <!-- Title on Menu Bar -->
+    <span>Quick Shop</span>
+
+    <!-- Spacer across Menu Bar -->
+    <span class="big-spacer"></span>
+
+    <!-- Button to take you to login page -->
+    <button (click)="goToPage('login')" mat-flat-button>Login / Signup</button>
+
+    <!-- Spacer between buttons -->
+    <span class="small-spacer"></span>
+
+    <!-- Button to take user to cart page -->
+    <button (click)="goToPage('cart')" mat-flat-button>View Cart</button>
+
+  </mat-toolbar> <!-- End of top toolbar contents -->
   
-    <!-- Side Navigation Window -->
-    <mat-drawer #drawer class="example-sidenav" mode="side">
-      <p>Test sidenav</p>
-    </mat-drawer>
-  
-    <!-- Toolbar at Top of Page -->
+  <!-- Search Input Box in Main Body -->
+  <form (change)="save()">
+    <mat-form-field>
+      <mat-label>Search</mat-label>
+      <input matInput placeholder="Ex. Dress Shoes" [(ngModel)]="search" name="Input">
+    </mat-form-field>
+  </form>
+
+  <!-- Table to Display Search Results -->
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="product_name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.product_name}} </td>
+    </ng-container>
+    <ng-container matColumnDef="image_url">
+      <th mat-header-cell *matHeaderCellDef> Image </th>
+      <td mat-cell *matCellDef="let element"> <img src={{element.image_url}} height="230" width="230" /> </td>
+    </ng-container>
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
+      <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+    </ng-container>
+    <ng-container matColumnDef="rating">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Rating </th>
+      <td mat-cell *matCellDef="let element"> {{element.rating}} </td>
+    </ng-container>
+    <ng-container matColumnDef="seller_name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Store ID </th>
+      <td mat-cell *matCellDef="let element"> {{element.seller_name}} </td>
+    </ng-container>
+    <!-- Button to add to cart -->
+    <ng-container matColumnDef="add_button">
+      <th mat-header-cell *matHeaderCellDef> Add To Cart </th>
+      <td mat-cell *matCellDef="let element"> <button (click)="sendSaveProduct(element)" mat-raised-button color="primary">Add</button> </td>
+    </ng-container>
+    
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <!-- Footer that is fixed to bottom of page -->
+  <footer>
     <mat-toolbar color="primary">
-  
-      <!-- Hamburger Menu Button (Toggles Sidenav) -->
-      <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="drawer.toggle()">
-        <mat-icon>menu</mat-icon>
-      </button>
-  
-      <!-- Title on Menu Bar -->
-      <span>Quick Shop</span>
-  
-      <!-- Spacer across Menu Bar -->
+      CEN3031
+
+      <!-- Spacer across toolbar-->
       <span class="big-spacer"></span>
 
-      <!-- Button to take you to login page -->
-      <button (click)="goToPage('login')" mat-flat-button>Login / Signup</button>
+      <!-- Heart Icon -->
+      <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+        <mat-icon>favorite</mat-icon>
+      </button>
 
-      <!-- Spacer between buttons -->
-      <span class="small-spacer"></span>
+      <!-- Share Icon -->
+      <button mat-icon-button class="example-icon" id="share" aria-label="Example icon-button with share icon">
+        <mat-icon>share</mat-icon>
+      </button>
+    </mat-toolbar>
+  </footer>
 
-      <!-- Button to take user to cart page -->
-      <button (click)="goToPage('cart')" mat-flat-button>View Cart</button>
-  
-    </mat-toolbar> <!-- End of top toolbar contents -->
-    
-    <!-- Search Input Box in Main Body -->
-    <form (change)="save()">
-      <mat-form-field>
-        <mat-label>Search</mat-label>
-        <input matInput placeholder="Ex. Dress Shoes" [(ngModel)]="search" name="Input">
-      </mat-form-field>
-    </form>
-
-    <!-- Table to Display Search Results -->
-    <table mat-table [dataSource]="items">
-
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.product_name}} </td>
-      </ng-container>
-      <ng-container matColumnDef="imgUrl">
-        <th mat-header-cell *matHeaderCellDef> Image </th>
-        <td mat-cell *matCellDef="let element"> <img src={{element.image_url}} height="230" width="230" /> </td>
-      </ng-container>
-      <ng-container matColumnDef="price">
-        <th mat-header-cell *matHeaderCellDef> Price </th>
-        <td mat-cell *matCellDef="let element"> {{element.price}} </td>
-      </ng-container>
-      <ng-container matColumnDef="rating">
-        <th mat-header-cell *matHeaderCellDef> Rating </th>
-        <td mat-cell *matCellDef="let element"> {{element.rating}} </td>
-      </ng-container>
-      <ng-container matColumnDef="store_id">
-        <th mat-header-cell *matHeaderCellDef> Store ID </th>
-        <td mat-cell *matCellDef="let element"> {{element.seller_name}} </td>
-      </ng-container>
-      <!-- Button to add to cart -->
-      <ng-container matColumnDef="add_button">
-        <th mat-header-cell *matHeaderCellDef> Add To Cart </th>
-        <td mat-cell *matCellDef="let element"> <button (click)="sendSaveProduct(element)" mat-raised-button color="primary">Add</button> </td>
-      </ng-container>
-      
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-
-    <!-- Footer that is fixed to bottom of page -->
-    <footer>
-      <mat-toolbar color="primary">
-        CEN3031
-
-        <!-- Spacer across toolbar-->
-        <span class="big-spacer"></span>
-
-        <!-- Heart Icon -->
-        <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-          <mat-icon>favorite</mat-icon>
-        </button>
-  
-        <!-- Share Icon -->
-        <button mat-icon-button class="example-icon" id="share" aria-label="Example icon-button with share icon">
-          <mat-icon>share</mat-icon>
-        </button>
-      </mat-toolbar>
-    </footer>
-  
-  </mat-drawer-container>
+</mat-drawer-container>

@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppComponent } from '../app.component'
 import { HttpService } from '../http.service';
 import * as http from '../http.service';
+import {MatSort, Sort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-home',
@@ -12,8 +14,10 @@ import * as http from '../http.service';
 export class HomeComponent {
   title = 'Home Page';
   items : http.ItemList;
+  dataSource : MatTableDataSource<http.RootObject>;
   search : string;
-  displayedColumns : any[] = ['name','imgUrl','price','rating','store_id', 'add_button'];
+  @ViewChild(MatSort) sort = new MatSort();
+  displayedColumns : any[] = ['product_name','image_url','price','rating','seller_name', 'add_button'];
   showFiller = false;
 
   constructor(private router: Router, private httpService: HttpService) {}
@@ -23,6 +27,9 @@ export class HomeComponent {
     this.httpService.getAllItems(this.search).subscribe(response => {
       console.log(response);
       this.items = response;
+      this.dataSource = new MatTableDataSource(this.items);
+      this.dataSource.sort = this.sort;
+      console.log(this.dataSource);
     })
   }
 
