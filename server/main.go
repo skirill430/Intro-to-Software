@@ -24,5 +24,5 @@ func main() {
 	})
 
 	fmt.Println("Server running on Port 9000...")
-	log.Fatal(http.ListenAndServe(":9000", corsHandler.Handler(r)))
+	log.Fatal(http.ListenAndServeTLS(":9000", "/etc/letsencrypt/live/quickshop.hopto.org/cert.pem", "/etc/letsencrypt/live/quickshop.hopto.org/privkey.pem", corsHandler.Handler(r)))
 }
