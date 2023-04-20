@@ -19,10 +19,10 @@ export type ItemList = Array<RootObject>;
 
 export class HttpService {
 
-    private bothURL = 'http://' + environment.serverURL + ':9000/bothStores'
-    private signupUserURL = 'http://' + environment.serverURL + ':9000/api/user/signup'
-    private loginUserURL = 'http://' + environment.serverURL + ':9000/api/user/signin'
-    private productURL = 'http://' + environment.serverURL + ':9000/api/products'
+    private bothURL = 'https://' + environment.serverURL + ':9000/bothStores'
+    private signupUserURL = 'https://' + environment.serverURL + ':9000/api/user/signup'
+    private loginUserURL = 'https://' + environment.serverURL + ':9000/api/user/signin'
+    private productURL = 'https://' + environment.serverURL + ':9000/api/products'
     private authToken = '';
     private httpOptions = {
       observe: 'response' as 'response',
