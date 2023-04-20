@@ -1,6 +1,6 @@
 # Sprint 4
 
-Video: 
+Video: https://youtu.be/_31ObCdHTWw
 
 ## Work Completed
 
@@ -16,6 +16,7 @@ Video:
 - Fixed add button text so it doesn't show over footer
 - Added sorting capability to front end so users can click on the name, rating, price column to sort to sort them by highest/lowest value
 - Removed home button
+- Added HTTPS Support, including an SSL certificate on the test site.
 
 ### Backend
 - Created route, handler function, and unit test for user logout.
@@ -25,9 +26,9 @@ Video:
 
 ## Frontend Tests
 ### Angular Unit Tests:
-
+AppComponent Title, AppComponent Creation, HttpService Creation, CartComponent Creation, LoginComponent Creation, HomeComponent Creation, HomeComponent Search Box, HomeComponent Toolbar, PageNotFoundComponent Creation
 ### Cypress Tests:
-
+Testing search input and receiving a response from the server
 ## Backend Tests
 ### Store Unit Tests:
 TestWalmart, TestTarget
