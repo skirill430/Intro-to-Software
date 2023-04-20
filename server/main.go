@@ -11,6 +11,8 @@ import (
 	"github.com/rs/cors"
 )
 
+var temp string
+
 func main() {
 	r := router.Router()
 	utils.ConnectDB("users")
@@ -24,5 +26,9 @@ func main() {
 	})
 
 	fmt.Println("Server running on Port 9000...")
-	log.Fatal(http.ListenAndServeTLS(":9000", "/etc/letsencrypt/live/quickshop.hopto.org/cert.pem", "/etc/letsencrypt/live/quickshop.hopto.org/privkey.pem", corsHandler.Handler(r)))
+	if temp == "1" {
+		log.Fatal(http.ListenAndServeTLS(":9000", "/etc/letsencrypt/live/quickshop.hopto.org/cert.pem", "/etc/letsencrypt/live/quickshop.hopto.org/privkey.pem", corsHandler.Handler(r)))
+	} else {
+		log.Fatal(http.ListenAndServe(":9000", corsHandler.Handler(r)))
+	}
 }
