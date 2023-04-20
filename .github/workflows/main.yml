@@ -106,7 +106,7 @@ jobs:
       with:
         script: | 
           cd /var/www/html
-          rm -r * || true
+          sudo rm -r * || true
     - name: SCP Files via SSH
       uses: appleboy/scp-action@master
       with:
@@ -134,7 +134,7 @@ jobs:
       with:
         script: | 
           cd /var/www/html
-          tar -xf angular.tar
+          sudo tar -xf angular.tar
 
     - name: Extract Go Files
       uses: appleboy/ssh-action@v0.1.8
@@ -145,7 +145,7 @@ jobs:
       with:
         script: |
           cd /var/www/html
-          tar -xf go.tar
+          sudo tar -xf go.tar
     - name: Enable Go Server
       uses: appleboy/ssh-action@v0.1.8
       env:
