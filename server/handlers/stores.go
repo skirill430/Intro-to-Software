@@ -64,7 +64,7 @@ func Target(w http.ResponseWriter, r *http.Request) {
 
 	req, _ := http.NewRequest("GET", url, nil)
 
-	req.Header.Add("X-RapidAPI-Key", "813328aa2cmshbaf8f8dc041bb3ep1a7203jsnc647b6bcd1c7")
+	req.Header.Add("X-RapidAPI-Key", "565d04422emshf98ee65e0a5a5f3p1fe45djsnd6349ef43834")
 	req.Header.Add("X-RapidAPI-Host", "target1.p.rapidapi.com")
 
 	res, err := http.DefaultClient.Do(req)
@@ -101,7 +101,7 @@ func BothStores(w http.ResponseWriter, r *http.Request) {
 
 	req, _ := http.NewRequest("GET", url, nil)
 
-	req.Header.Add("X-RapidAPI-Key", "813328aa2cmshbaf8f8dc041bb3ep1a7203jsnc647b6bcd1c7")
+	req.Header.Add("X-RapidAPI-Key", "565d04422emshf98ee65e0a5a5f3p1fe45djsnd6349ef43834")
 	req.Header.Add("X-RapidAPI-Host", "target1.p.rapidapi.com")
 
 	res, err := http.DefaultClient.Do(req)
