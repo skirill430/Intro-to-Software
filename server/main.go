@@ -19,7 +19,7 @@ func main() {
 	utils.ConnectDB("products")
 
 	corsHandler := cors.New(cors.Options{
-		AllowedOrigins:   []string{"http://localhost:4200", "http://localhost", "http://132.145.212.18", "http://132.145.212.18/home", "http://132.145.212.18/login", "http://132.145.212.18/cart", "http://quickshop.hopto.org", "https://quickshop.hopto.org"},
+		AllowedOrigins:   []string{"http://localhost:4200", "http://localhost", "http://132.145.212.18", "http://132.145.212.18/home", "http://132.145.212.18/login", "http://132.145.212.18/cart", "http://quickshop.ddns.net", "https://quickshop.ddns.net"},
 		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 		AllowedHeaders:   []string{"*"},
 		AllowCredentials: true,
